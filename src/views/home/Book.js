@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -9,19 +9,19 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import {red} from '@material-ui/core/colors';
-import ShareIcon from '@material-ui/icons/Share';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Truncate from "react-truncate";
 import Chip from "@material-ui/core/Chip";
 import Divider from "@material-ui/core/Divider";
-import {Redirect} from "react-router-dom";
+import AddIcon from '@material-ui/icons/Add';
+import Fab from "@material-ui/core/Fab";
 
 const useStyles = makeStyles(() => ({
     root: {
         maxWidth: 345,
     }, media: {
-        maxWidth: 350 + "px",
+        cursor: "pointer",
+        maxWidth: '100%',
         maxHeight: 400 + "px",
         width: "auto",
         height: "auto",
@@ -29,9 +29,11 @@ const useStyles = makeStyles(() => ({
         marginRight: "auto",
         display: "block",
     }, expand: {
-        marginLeft: 'auto',
+        marginRight: 'auto',
     }, expandOpen: {
         transform: 'rotate(180deg)',
+    }, tagLink: {
+        textDecoration: "none",
     }, avatar: {
         backgroundColor: red[500],
     }, price: {
@@ -40,12 +42,8 @@ const useStyles = makeStyles(() => ({
         marginTop: 15 + "px",
     }, tag: {
         marginRight: 5 + "px",
-    },
-    bookStatus: {
-        display: "flex",
-        justifyContent: "flex-end",
-        marginRight: 15 + "px",
-        marginTop   : 15 + "px",
+    }, bookStatus: {
+        display: "flex", justifyContent: "flex-end", marginRight: 15 + "px", marginTop: 15 + "px",
     }
 }));
 
@@ -58,12 +56,22 @@ const Book = ({book}) => {
         return null
     }
 
+    function setTag(value) {
+        let urlSearchParams = new URLSearchParams(window.location.search);
+        urlSearchParams.set("tags", value)
+
+        window.location.href = "/?" + urlSearchParams.toString();
+    }
+
     return (<Card className={classes.root} xs={6}>
         <CardMedia
             className={classes.media}
             component={"img"}
             image={book.cover}
             title={book.title}
+            onClick={() => {
+                window.location.href = '/books/' + book.id
+            }}
         />
         <CardHeader
             avatar={<Avatar
@@ -89,25 +97,25 @@ const Book = ({book}) => {
                         size="small"
                         label={value}
                         clickable
-                        color="secondary"
+                        color="primary"
                         key={value}
                         className={classes.tag}
+                        onClick={() => {
+                            setTag(value)
+                        }}
                     />)
                 })}
             </div>
         </CardContent>
         <CardActions disableSpacing>
-            <IconButton aria-label="book details" href={"/books/" + book.id}>
-                <AddCircleIcon/>
-            </IconButton>
-            <IconButton aria-label="share">
-                <ShareIcon/>
-            </IconButton>
             <IconButton
                 className={classes.expand}
             >
                 <LocalOfferIcon/><span className={classes.price}>{book.price.amount} €</span>
             </IconButton>
+            <Fab color="secondary" aria-label="details" size="large" href={"/books/" + book.id}>
+                <AddIcon/>
+            </Fab>
         </CardActions>
     </Card>);
 }
