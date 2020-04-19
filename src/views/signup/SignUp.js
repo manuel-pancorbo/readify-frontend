@@ -1,28 +1,16 @@
 import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
-function Copyright() {
-    return (<Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>);
-}
+import { useForm } from 'react-hook-form'
+import axios from "axios";
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -34,25 +22,56 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(3),
     }, submit: {
         margin: theme.spacing(3, 0, 2),
-    },
+    }, errorMessage: {
+        marginTop: '20px'
+    }
 }));
 
 export default function SignUp() {
     const classes = useStyles();
+    const { register, handleSubmit } = useForm()
     const [avatar, setAvatar] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [submitError, setSubmitError] = useState(false)
+    const onSubmit = signUpData => { signUpUser(signUpData) }
 
     function avatarChanged(event) {
         setAvatar(event.target.value)
     }
 
+    function signUpUser(signUpData) {
+        setLoading(true)
+        axios.post('/v1/users', {
+            fullName: signUpData['fullName'],
+            email: signUpData['email'],
+            password: signUpData['password'],
+            image: signUpData['avatar'],
+            username: signUpData['username']
+        })
+            .then(function () {
+                window.location.href = "/sign-up/success"
+                setLoading(false)
+            })
+            .catch(function () {
+                setLoading(false)
+                setSubmitError(true)
+            })
+    }
+
+    let errorMessage;
+    if (submitError) {
+        errorMessage = <Alert className={classes.errorMessage} severity="error">Ups, seems that we already have an user registered with that username or email </Alert>;
+    } else {
+        errorMessage = '';
+    }
+
     return (<Container component="main" maxWidth="xs">
-            <CssBaseline/>
             <div className={classes.paper}>
                 <SignUpAvatar avatar={avatar}/>
                 <Typography component="h1" variant="h5">
                     Sign up
                 </Typography>
-                <form className={classes.form}>
+                <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField
@@ -64,6 +83,19 @@ export default function SignUp() {
                                 id="fullName"
                                 label="Full Name"
                                 autoFocus
+                                inputRef={register}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                autoComplete="username"
+                                name="username"
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="username"
+                                label="Username"
+                                inputRef={register}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -75,6 +107,8 @@ export default function SignUp() {
                                 label="Email Address"
                                 name="email"
                                 autoComplete="email"
+                                type={"email"}
+                                inputRef={register}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -86,6 +120,7 @@ export default function SignUp() {
                                 name="avatar"
                                 autoComplete="avatar"
                                 onChange={avatarChanged}
+                                inputRef={register}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -98,20 +133,17 @@ export default function SignUp() {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControlLabel
-                                control={<Checkbox value="allowExtraEmails" color="primary"/>}
-                                label="I want to receive inspiration, marketing promotions and updates via email."
+                                inputRef={register}
                             />
                         </Grid>
                     </Grid>
+                    {errorMessage}
                     <Button
                         type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
+                        disabled={loading}
                         className={classes.submit}
                     >
                         Sign Up
@@ -119,15 +151,12 @@ export default function SignUp() {
                     <Grid container justify="flex-end">
                         <Grid item>
                             <Link href="/login" variant="body2">
-                                Already have an account? Sign in
+                                Already have an account? Log in
                             </Link>
                         </Grid>
                     </Grid>
                 </form>
             </div>
-            <Box mt={5}>
-                <Copyright/>
-            </Box>
         </Container>);
 }
 
