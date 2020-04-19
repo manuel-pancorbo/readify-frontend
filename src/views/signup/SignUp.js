@@ -8,7 +8,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useForm } from 'react-hook-form'
+import {useForm} from 'react-hook-form'
 import axios from "axios";
 import Alert from "@material-ui/lab/Alert";
 
@@ -29,11 +29,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
     const classes = useStyles();
-    const { register, handleSubmit } = useForm()
+    const {register, handleSubmit} = useForm()
     const [avatar, setAvatar] = useState(null);
     const [loading, setLoading] = useState(false);
     const [submitError, setSubmitError] = useState(false)
-    const onSubmit = signUpData => { signUpUser(signUpData) }
+    const onSubmit = signUpData => {
+        signUpUser(signUpData)
+    }
 
     function avatarChanged(event) {
         setAvatar(event.target.value)
@@ -60,104 +62,106 @@ export default function SignUp() {
 
     let errorMessage;
     if (submitError) {
-        errorMessage = <Alert className={classes.errorMessage} severity="error">Ups, seems that we already have an user registered with that username or email </Alert>;
+        errorMessage =
+            <Alert className={classes.errorMessage} severity="error">Ups, seems that we already have an user registered with that username
+                or email </Alert>;
     } else {
         errorMessage = '';
     }
 
     return (<Container component="main" maxWidth="xs">
-            <div className={classes.paper}>
-                <SignUpAvatar avatar={avatar}/>
-                <Typography component="h1" variant="h5">
-                    Sign up
-                </Typography>
-                <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <TextField
-                                autoComplete="fullname"
-                                name="fullName"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="fullName"
-                                label="Full Name"
-                                autoFocus
-                                inputRef={register}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                autoComplete="username"
-                                name="username"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="username"
-                                label="Username"
-                                inputRef={register}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                                type={"email"}
-                                inputRef={register}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                id="avatar"
-                                label="Avatar"
-                                name="avatar"
-                                autoComplete="avatar"
-                                onChange={avatarChanged}
-                                inputRef={register}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                                inputRef={register}
-                            />
-                        </Grid>
+        <div className={classes.paper}>
+            <SignUpAvatar avatar={avatar}/>
+            <Typography component="h1" variant="h5">
+                Sign up
+            </Typography>
+            <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <TextField
+                            autoComplete="fullname"
+                            name="fullName"
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="fullName"
+                            label="Full Name"
+                            autoFocus
+                            inputRef={register}
+                        />
                     </Grid>
-                    {errorMessage}
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        disabled={loading}
-                        className={classes.submit}
-                    >
-                        Sign Up
-                    </Button>
-                    <Grid container justify="flex-end">
-                        <Grid item>
-                            <Link href="/login" variant="body2">
-                                Already have an account? Log in
-                            </Link>
-                        </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            autoComplete="username"
+                            name="username"
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="username"
+                            label="Username"
+                            inputRef={register}
+                        />
                     </Grid>
-                </form>
-            </div>
-        </Container>);
+                    <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            autoComplete="email"
+                            type={"email"}
+                            inputRef={register}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            fullWidth
+                            id="avatar"
+                            label="Avatar"
+                            name="avatar"
+                            autoComplete="avatar"
+                            onChange={avatarChanged}
+                            inputRef={register}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            inputRef={register}
+                        />
+                    </Grid>
+                </Grid>
+                {errorMessage}
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    disabled={loading}
+                    className={classes.submit}
+                >
+                    Sign Up
+                </Button>
+                <Grid container justify="flex-end">
+                    <Grid item>
+                        <Link href="/login" variant="body2">
+                            Already have an account? Log in
+                        </Link>
+                    </Grid>
+                </Grid>
+            </form>
+        </div>
+    </Container>);
 }
 
 const SignUpAvatar = ({avatar}) => {
@@ -169,7 +173,5 @@ const SignUpAvatar = ({avatar}) => {
         </Avatar>)
     }
 
-    return (
-    <Avatar className={classes.avatar} src={avatar}/>
-    )
+    return (<Avatar className={classes.avatar} src={avatar}/>)
 }
