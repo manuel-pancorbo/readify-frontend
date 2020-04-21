@@ -51,8 +51,8 @@ export default function SignUp() {
             username: signUpData['username']
         })
             .then(function () {
-                window.location.href = "/sign-up/success"
                 setLoading(false)
+                window.location.href = "/sign-up/success"
             })
             .catch(function () {
                 setLoading(false)

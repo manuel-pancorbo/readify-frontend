@@ -10,39 +10,50 @@ import Login from "./views/login/Login";
 import SignUp from "./views/signup/SignUp";
 import Footer from "./components/footer/Footer";
 import SignUpSuccess from "./views/signupsuccess/SignUpSuccess";
+import PrivateRoute from "./components/privateroute/PrivateRoute";
+import UserProfile from "./views/userprofile/UserProfile";
+import {AuthContext} from "./context/auth";
+import Logout from "./views/logout/Logout";
+import {getUser} from "./services/auth/LocalStorageUserRepository";
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-const App = () => (<ThemeProvider theme={createMuiTheme({palette: {type: 'light'}})}><CssBaseline/>
-    <Router>
-        <Header/>
-        <Switch>
-            <Route exact path="/">
-                <Home/>
-            </Route>
-            <Route exact path="/login">
-                <Login/>
-            </Route>
-            <Route exact path="/sign-up">
-                <SignUp/>
-            </Route>
-            <Route exact path="/sign-up/success">
-                <SignUpSuccess/>
-            </Route>
-            <Route exact path="/books/{bookId}">
-                <h1>Book detail</h1>
-            </Route>
-            <Route exact path="/mybooks">
-                <h1>My books page</h1>
-            </Route>
-            <Route path="*">
-                <NotFound/>
-            </Route>
-        </Switch>
-        <Footer/>
-    </Router>
+const App = () => {
+    console.error((getUser()))
 
-</ThemeProvider>);
+    return <AuthContext.Provider value={getUser()}>
+        <ThemeProvider theme={createMuiTheme({palette: {type: 'light'}})}><CssBaseline/>
+            <Router>
+                <Header/>
+                <Switch>
+                    <Route exact path="/">
+                        <Home/>
+                    </Route>
+                    <Route exact path="/login">
+                        <Login/>
+                    </Route>
+                    <Route exact path="/sign-up">
+                        <SignUp/>
+                    </Route>
+                    <Route exact path="/sign-up/success">
+                        <SignUpSuccess/>
+                    </Route>
+                    <Route exact path="/books/{bookId}">
+                        <h1>Book detail</h1>
+                    </Route>
+                    <Route exact path="/logout">
+                        <Logout/>
+                    </Route>
+                    <PrivateRoute exact path="/profile" component={UserProfile}/>
+                    <Route path="*">
+                        <NotFound/>
+                    </Route>
+                </Switch>
+                <Footer/>
+            </Router>
+        </ThemeProvider>
+    </AuthContext.Provider>;
+};
 
 export default App;
