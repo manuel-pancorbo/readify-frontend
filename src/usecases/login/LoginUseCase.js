@@ -3,9 +3,11 @@ import {getUserById} from "../../api/userprofile";
 import * as jwt from "jsonwebtoken";
 
 export class LoginUseCase {
+
     constructor(authenticatedUserRepository) {
         this._authenticatedUserRepository = authenticatedUserRepository
     }
+
     execute(userIdentifier, password) {
         return getToken(userIdentifier, password)
             .then((token) => {

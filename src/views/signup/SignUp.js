@@ -9,8 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {useForm} from 'react-hook-form'
-import axios from "axios";
 import Alert from "@material-ui/lab/Alert";
+import {SignUpUseCase} from "../../usecases/signup/SignUpUseCase";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -29,21 +29,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
     const classes = useStyles();
-    const {register, handleSubmit} = useForm()
+    const {register, handleSubmit} = useForm();
     const [avatar, setAvatar] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [submitError, setSubmitError] = useState(false)
-    const onSubmit = signUpData => {
-        signUpUser(signUpData)
-    }
+    const [submitError, setSubmitError] = useState(false);
+    const onSubmit = signUpData => signUpUser(signUpData);
 
     function avatarChanged(event) {
         setAvatar(event.target.value)
     }
 
     function signUpUser(signUpData) {
-        setLoading(true)
-        axios.post('/v1/users', {
+        setLoading(true);
+        new SignUpUseCase().execute({
             fullName: signUpData['fullName'],
             email: signUpData['email'],
             password: signUpData['password'],
@@ -51,11 +49,12 @@ export default function SignUp() {
             username: signUpData['username']
         })
             .then(function () {
-                setLoading(false)
+                setLoading(false);
                 window.location.href = "/sign-up/success"
             })
-            .catch(function () {
-                setLoading(false)
+            .catch(function (error) {
+                console.log(error);
+                setLoading(false);
                 setSubmitError(true)
             })
     }
@@ -174,4 +173,4 @@ const SignUpAvatar = ({avatar}) => {
     }
 
     return (<Avatar className={classes.avatar} src={avatar}/>)
-}
+};
