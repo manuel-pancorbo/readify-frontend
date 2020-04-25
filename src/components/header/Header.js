@@ -54,7 +54,7 @@ const useStyles = makeStyles(theme => ({
 const Header = () => {
     const classes = useStyles();
     const [isDrawerOpened, setIsDrawerOpened] = React.useState(false);
-    const isUserAuthenticated = useAuth()
+    const user = useAuth();
 
     return (<div className={classes.grow}>
         <AppBar position="static" color={"inherit"}>
@@ -77,34 +77,60 @@ const Header = () => {
             </Toolbar>
         </AppBar>
         <Drawer anchor={"left"} open={isDrawerOpened} onClose={() => { setIsDrawerOpened(false) }}>
-            <MenuHeader/>
+            { user ? <MenuHeader user={user} /> : <AnonymousMenuHeader/> }
             <Divider/>
-            { isUserAuthenticated ? <UserAuthenticatedMenu/> : <AnonymousUserMenu/> }
+            { user ? <UserAuthenticatedMenu/> : <AnonymousUserMenu/> }
         </Drawer>
     </div>);
-}
+};
 
-const MenuHeader = () => {
+const MenuHeader = ({user}) => {
     const useStyles = makeStyles(theme => ({
         avatar: {
             backgroundColor: theme.palette.secondary.main, width: theme.spacing(12), height: theme.spacing(12), margin: "auto"
         }, menuHeader: {
             marginTop: '20px', marginBottom: '20px',
-        }, menuSubtitle: {
-            marginTop: '15px', display: "flex", justifyContent: "center",
+        }, username: {
+            marginTop: '15px', display: "flex", justifyContent: "center", color: theme.palette.primary.main
+        }, email: {
+            marginTop: '10px', display: "flex", justifyContent: "center",
         }
     }));
-    const classes = useStyles()
+    const classes = useStyles();
+
+    const avatar = user.image
+        ? <Avatar src={user.image} className={classes.avatar}/>
+        : <Avatar className={classes.avatar}>{user.username.charAt(0).toUpperCase()}</Avatar>;
 
     return (
         <div className={classes.menuHeader}>
-            <Avatar className={classes.avatar}>MP</Avatar>
-            <div className={classes.menuSubtitle}>
-                <Typography style={{fontSize: 1 + 'rem'}} variant={"subtitle2"} component={"span"}> manuel.pancorbo </Typography>
+            {avatar}
+            <div className={classes.username}>
+                <Typography style={{fontSize: "1.2rem", fontWeight: 500}} component={"span"} variant={"subtitle2"}> {user.username} </Typography>
+            </div>
+            <div className={classes.email}>
+                <Typography style={{fontSize: "0.8rem"}} component={"span"}> {user.email} </Typography>
             </div>
         </div>
     )
-}
+};
+
+const AnonymousMenuHeader = () => {
+    const useStyles = makeStyles(theme => ({
+        avatar: {
+            backgroundColor: theme.palette.secondary.main, width: theme.spacing(12), height: theme.spacing(12), margin: "auto"
+        }, menuHeader: {
+            marginTop: '20px', marginBottom: '20px',
+        }
+    }));
+    const classes = useStyles();
+
+    return (
+        <div className={classes.menuHeader}>
+            <Avatar className={classes.avatar}/>
+        </div>
+    )
+};
 
 const UserAuthenticatedMenu = () => {
     return (
@@ -128,7 +154,7 @@ const UserAuthenticatedMenu = () => {
             </List>
         </div>
     )
-}
+};
 
 const AnonymousUserMenu = () => {
     return (
@@ -152,6 +178,6 @@ const AnonymousUserMenu = () => {
             </List>
         </div>
     )
-}
+};
 
 export default Header

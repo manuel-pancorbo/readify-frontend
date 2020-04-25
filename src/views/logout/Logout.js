@@ -1,13 +1,8 @@
-import React from "react";
-import {Redirect} from "react-router-dom";
-import {removeUser} from "../../services/auth/LocalStorageUserRepository";
+import {AuthenticatedUserRepository} from "../../services/auth/AuthenticatedUserRepository";
 
 const Logout = () => {
-    removeUser("user")
-
-    return (
-        <Redirect to={"/"} />
-    )
-}
+    new AuthenticatedUserRepository().clear();
+    window.location.href="/"
+};
 
 export default Logout

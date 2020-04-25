@@ -3,7 +3,7 @@ import {Route} from "react-router-dom";
 import {Redirect} from "react-router-dom";
 import {useAuth} from "../../context/auth";
 
-export default function PrivateRoute({ component: Component, ...rest }) {
+const PrivateRoute = ({ component: Component, ...rest }) => {
     const isAuthenticated = useAuth();
 
     return (
@@ -18,4 +18,6 @@ export default function PrivateRoute({ component: Component, ...rest }) {
             }
         />
     );
-}
+};
+
+export default PrivateRoute

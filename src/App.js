@@ -14,15 +14,14 @@ import PrivateRoute from "./components/privateroute/PrivateRoute";
 import UserProfile from "./views/userprofile/UserProfile";
 import {AuthContext} from "./context/auth";
 import Logout from "./views/logout/Logout";
-import {getUser} from "./services/auth/LocalStorageUserRepository";
+import {AuthenticatedUserRepository} from "./services/auth/AuthenticatedUserRepository";
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 const App = () => {
-    console.error((getUser()))
-
-    return <AuthContext.Provider value={getUser()}>
+    console.log(new AuthenticatedUserRepository().getUser());
+    return <AuthContext.Provider value={new AuthenticatedUserRepository().getUser()}>
         <ThemeProvider theme={createMuiTheme({palette: {type: 'light'}})}><CssBaseline/>
             <Router>
                 <Header/>
