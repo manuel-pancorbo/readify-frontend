@@ -53,7 +53,6 @@ export default function SignUp() {
                 window.location.href = "/sign-up/success"
             })
             .catch(function (error) {
-                console.log(error);
                 setLoading(false);
                 setSubmitError(true)
             })

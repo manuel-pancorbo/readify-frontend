@@ -2,7 +2,7 @@ export class AuthenticatedUserRepository {
     getUser = () => {
         try {
             let user = JSON.parse(localStorage.getItem("user"));
-            user.token = localStorage.getItem("user");
+            user.token = localStorage.getItem("token");
             return user;
         } catch (e) {
             return null

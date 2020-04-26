@@ -23,12 +23,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const SignUpSuccess = () => {
+const PaymentCanceled = () => {
     const classes = useStyles();
 
     return (<Container maxWidth="sm" component="main" className={classes.heroContent}>
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-                Welcome to Readify
+                Your purchase has been canceled
             </Typography>
             <Typography variant="h5" align="center" color="textSecondary" component="p">
                 Lorem ipsum dolor sit amet, te vis autem ridens utamur, aperiam impedit apeirian ea eam, nec ei saepe eirmod. Modus
@@ -37,11 +37,11 @@ const SignUpSuccess = () => {
             </Typography>
 
             <div className={classes.loginContainer}>
-                <Button href="/login" variant="contained" color="primary" size={"large"} classes={{
+                <Button href="/" variant="contained" color="primary" size={"large"} classes={{
                     root: classes.MuiButtonRoot
-                }}>Login</Button>
+                }}>Explore books</Button>
             </div>
         </Container>)
 };
 
-export default SignUpSuccess
+export default PaymentCanceled

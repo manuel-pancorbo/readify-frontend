@@ -10,14 +10,13 @@ import Backdrop from "@material-ui/core/Backdrop";
 import ChapterCard from "../../components/book/ChapterCard";
 import BookDiscussion from "../../components/book/BookDiscussion";
 import BookDetailsCard from "../../components/book/BookDetailsCard";
+import BuyBookFloatingActionButton from "../../components/book/BuyBookFloatingActionButton";
 
 const useStyles = makeStyles((theme) => ({
     bookContainer: {
         position: "relative", marginTop: "20px"
     }, chaptersContainer: {
         marginTop: "25px"
-    }, fab: {
-        margin: 0, top: 'auto', right: 40, bottom: 40, left: 'auto', position: 'fixed', width: 90, height: 90,
     }, backdrop: {
         zIndex: theme.zIndex.drawer + 1, color: '#fff',
     }
@@ -52,9 +51,7 @@ const ReaderBookDetail = ({bookId}) => {
             })}
         </Grid>
         <BookDiscussion bookId={book.id} bookTitle={book.title}/>
-        <Fab color="primary" aria-label="add" size={"large"} className={classes.fab}>
-            <ShoppingCartIcon/>
-        </Fab>
+        <BuyBookFloatingActionButton bookId={bookId}/>
     </Container>)
 };
 

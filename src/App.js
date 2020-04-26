@@ -16,6 +16,8 @@ import {AuthContext} from "./context/auth";
 import Logout from "./views/logout/Logout";
 import {AuthenticatedUserRepository} from "./services/auth/AuthenticatedUserRepository";
 import ReaderBookDetail from "./views/readerbookdetail/ReaderBookDetail";
+import PaymentCanceled from "./views/paymentcanceled/PaymentCanceled";
+import PaymentSuccess from "./views/paymentsuccess/PaymentSuccess";
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -37,6 +39,12 @@ const App = () => {
                     </Route>
                     <Route exact path="/sign-up/success">
                         <SignUpSuccess/>
+                    </Route>
+                    <Route exact path="/payments/success">
+                        <PaymentSuccess/>
+                    </Route>
+                    <Route exact path="/payments/canceled">
+                        <PaymentCanceled/>
                     </Route>
                     <Route
                         path="/books/:bookId"

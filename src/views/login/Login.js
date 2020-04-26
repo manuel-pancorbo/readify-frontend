@@ -46,7 +46,6 @@ const Login = () => {
                 window.location.href = "/profile";
             })
             .catch((error) => {
-                console.error(error);
                 setLoading(false);
                 setSubmitError(true)
             })

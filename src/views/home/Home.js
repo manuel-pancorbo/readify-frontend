@@ -9,13 +9,12 @@ const Home = () => {
         const callToApi = () => {
             axios.get('/v1/books?' + stringify(extractFilters()))
                 .then(function (response) {
-                    console.log(response.data);
                     setSearchResults(response.data)
                 })
                 .catch(function (error) {
                     console.error(error)
                 })
-        }
+        };
         callToApi()
     }, []);
 
