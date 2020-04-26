@@ -15,12 +15,12 @@ import UserProfile from "./views/userprofile/UserProfile";
 import {AuthContext} from "./context/auth";
 import Logout from "./views/logout/Logout";
 import {AuthenticatedUserRepository} from "./services/auth/AuthenticatedUserRepository";
+import ReaderBookDetail from "./views/readerbookdetail/ReaderBookDetail";
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 const App = () => {
-    console.log(new AuthenticatedUserRepository().getUser());
     return <AuthContext.Provider value={new AuthenticatedUserRepository().getUser()}>
         <ThemeProvider theme={createMuiTheme({palette: {type: 'light'}})}><CssBaseline/>
             <Router>
@@ -38,9 +38,12 @@ const App = () => {
                     <Route exact path="/sign-up/success">
                         <SignUpSuccess/>
                     </Route>
-                    <Route exact path="/books/{bookId}">
-                        <h1>Book detail</h1>
-                    </Route>
+                    <Route
+                        path="/books/:bookId"
+                        render={({ match }) => {
+                            return (<ReaderBookDetail bookId={match.params.bookId} />)
+                        }}
+                    />
                     <Route exact path="/logout">
                         <Logout/>
                     </Route>

@@ -51,14 +51,14 @@ const Book = ({book}) => {
     const classes = useStyles();
 
     function mapStatus(status) {
-        if (status === "in_progress") return "En progreso"
-        if (status === "finished") return "Completado"
+        if (status === "in_progress") return "En progreso";
+        if (status === "finished") return "Completado";
         return null
     }
 
     function setTag(value) {
         let urlSearchParams = new URLSearchParams(window.location.search);
-        urlSearchParams.set("tags", value)
+        urlSearchParams.set("tags", value);
 
         window.location.href = "/?" + urlSearchParams.toString();
     }
@@ -118,6 +118,6 @@ const Book = ({book}) => {
             </Fab>
         </CardActions>
     </Card>);
-}
+};
 
 export default Book
