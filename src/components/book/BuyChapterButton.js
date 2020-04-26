@@ -20,7 +20,7 @@ const BuyChapterButton = ({bookId, chapterId}) => {
         setOpenBackdrop(true);
         new AttemptChapterPaymentUseCase(new AuthenticatedUserRepository()).execute(bookId, chapterId)
             .then(() => setOpenBackdrop(false))
-            .catch((error) => console.error(error))
+            .catch(() => window.location.href = "/login" )
     };
 
     return (<React.Fragment>

@@ -24,7 +24,7 @@ const BuyBookFloatingActionButton = ({bookId}) => {
         new AttemptBookPaymentUseCase(new AuthenticatedUserRepository())
             .execute(bookId)
             .then(() => setOpenBackdrop(false))
-            .catch((error) => console.error(error))
+            .catch(() => window.location.href = "/login" )
     };
 
     return (<React.Fragment>
