@@ -5,7 +5,6 @@ export class GetReaderBookUseCase {
     execute(bookId) {
        return getBook(bookId)
            .then((book) => {
-               console.error(book);
                return Promise.all([book, getUserById(book.authorId)])
            })
            .then(([book, author]) => {
