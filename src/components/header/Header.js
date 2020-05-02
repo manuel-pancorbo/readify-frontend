@@ -19,6 +19,7 @@ import Typography from "@material-ui/core/Typography";
 import SearchIcon from '@material-ui/icons/Search';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
+import CreateIcon from '@material-ui/icons/Create';
 import {useAuth} from "../../context/auth";
 
 const useStyles = makeStyles(theme => ({
@@ -143,6 +144,10 @@ const UserAuthenticatedMenu = () => {
                 <ListItem onClick={() => { window.location.href = "/my-books" }} button>
                     <ListItemIcon><MenuBookIcon/></ListItemIcon>
                     <ListItemText primary={"My books"}/>
+                </ListItem>
+                <ListItem onClick={() => { window.location.href = "/my-publications" }} button>
+                    <ListItemIcon><CreateIcon/></ListItemIcon>
+                    <ListItemText primary={"My publications"}/>
                 </ListItem>
             </List>
             <Divider/>
