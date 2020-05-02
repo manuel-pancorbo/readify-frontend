@@ -18,6 +18,7 @@ import {AuthenticatedUserRepository} from "./services/auth/AuthenticatedUserRepo
 import ReaderBookDetail from "./views/readerbookdetail/ReaderBookDetail";
 import PaymentCanceled from "./views/paymentcanceled/PaymentCanceled";
 import PaymentSuccess from "./views/paymentsuccess/PaymentSuccess";
+import PostBook from "./views/postbook/PostBook";
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -56,6 +57,7 @@ const App = () => {
                         <Logout/>
                     </Route>
                     <PrivateRoute exact path="/profile" component={UserProfile}/>
+                    <PrivateRoute exact path="/write-book" component={PostBook}/>
                     <Route path="*">
                         <NotFound/>
                     </Route>
