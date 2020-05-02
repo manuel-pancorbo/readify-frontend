@@ -19,7 +19,7 @@ export class GetReaderBookUseCase {
                 const reader = this._authenticatedUserRepository.getUser()
 
                 if (!reader) {
-                    return Promise.resolve(book)
+                    return Promise.all([book, {type: "not-bought"}])
                 }
 
                 return Promise.all([book, getReaderBook(reader, book.id)])

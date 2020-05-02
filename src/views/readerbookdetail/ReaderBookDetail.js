@@ -10,6 +10,9 @@ import BookDiscussion from "../../components/book/BookDiscussion";
 import BookDetailsCard from "../../components/book/BookDetailsCard";
 import BuyBookFloatingActionButton from "../../components/book/BuyBookFloatingActionButton";
 import {AuthenticatedUserRepository} from "../../services/auth/AuthenticatedUserRepository";
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
+import Link from "@material-ui/core/Link";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
     bookContainer: {
@@ -18,6 +21,8 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "25px"
     }, backdrop: {
         zIndex: theme.zIndex.drawer + 1, color: '#fff',
+    }, breadcrumbs: {
+        marginBottom: "25px"
     }
 }));
 
@@ -33,7 +38,7 @@ const ReaderBookDetail = ({bookId}) => {
                 setOpenBackdrop(false);
                 setBook(book);
             })
-            .catch(() => (window.location.href = "/not-found"));
+            .catch(() => window.location.href = "/not-found");
     }, []);
 
     const isChapterAcquiredByReader = (chapterId) => {
@@ -44,6 +49,8 @@ const ReaderBookDetail = ({bookId}) => {
         return book.readerOwnership.type === 'partial' && book.readerOwnership.chapters.includes(chapterId);
     }
 
+    const isBookAcquiredByReader = () => book.readerOwnership.type !== 'not-bought'
+
     if (!book) {
         return <Backdrop className={classes.backdrop} open={openBackdrop}>
             <CircularProgress color="inherit"/>
@@ -51,6 +58,12 @@ const ReaderBookDetail = ({bookId}) => {
     }
 
     return (<Container maxWidth={"md"} className={classes.bookContainer}>
+        <Breadcrumbs aria-label="breadcrumb" className={classes.breadcrumbs}>
+            <Link color="inherit" href={isBookAcquiredByReader() ? "/my-books" : "/"}>
+                {isBookAcquiredByReader() ? "My books" : "Explore"}
+            </Link>
+            <Typography color="textPrimary">{book.title}</Typography>
+        </Breadcrumbs>
         <BookDetailsCard book={book}/>
         <Grid container alignItems={"center"} justify="center" spacing={3} className={classes.chaptersContainer}>
             {book.chapters.map((chapter) => {

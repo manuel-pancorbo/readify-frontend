@@ -12,3 +12,12 @@ export const postBook = (author, book) => {
     return axios.post(`/v1/authors/${author.id}/books`, httpBook, {headers: headers})
         .then((response) => Promise.resolve(response.data.id))
 }
+
+export const getAuthorBooks = (author) => {
+    const headers = {
+        'Content-Type': 'application/json', 'Authorization': `Bearer ${author.token}`
+    };
+
+    return axios.get(`/v1/authors/${author.id}/books`, {headers: headers})
+        .then((response) => Promise.resolve(response.data.books))
+}

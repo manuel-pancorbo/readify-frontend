@@ -43,12 +43,18 @@ const Login = () => {
         new LoginUseCase(new AuthenticatedUserRepository()).execute(loginData['userIdentifier'], loginData['password'])
             .then(() => {
                 setLoading(false);
-                window.location.href = "/profile";
+                window.location.href = redirectAfterLogin()
             })
-            .catch((error) => {
+            .catch(() => {
                 setLoading(false);
                 setSubmitError(true)
             })
+    }
+
+    const redirectAfterLogin = () => {
+        const urlSearchParams = new URLSearchParams(window.location.search)
+
+        return urlSearchParams.get("redirectTo") != null ? urlSearchParams.get("redirectTo") : "/profile";
     }
 
     let errorMessage;

@@ -1,25 +1,32 @@
 import React from "react";
-import CompletionPercentageProgress from "./CompletionPercentageProgress";
+import {makeStyles} from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import CompletionPercentageProgress from "../book/CompletionPercentageProgress";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
-import Paper from "@material-ui/core/Paper";
-import {makeStyles} from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-        padding: theme.spacing(2), margin: 'auto'
+        padding: theme.spacing(2), margin: 'auto', width: "100%"
     }, cover: {
-        maxWidth: "100%", maxHeight: "400px", marginRight: "auto", marginLeft: "auto", display: "block",
+        maxWidth: "100%", maxHeight: "350", marginRight: "auto", marginLeft: "auto", display: "block",
     }, avatar: {
-        width: theme.spacing(5), height: theme.spacing(5), marginRight: "10px", color: theme.palette.getContrastText(theme.palette.secondary.main), backgroundColor: theme.palette.secondary.main
+        width: theme.spacing(5),
+        height: theme.spacing(5),
+        marginRight: "10px",
+        color: theme.palette.getContrastText(theme.palette.secondary.main),
+        backgroundColor: theme.palette.secondary.main
     }, title: {
         color: theme.palette.text.secondary, paddingBottom: "15px"
     }, authorName: {
         color: theme.palette.text.primary
     }, bookStatus: {
-        backgroundColor: theme.palette.warning.main, color: "#FFFFFF", marginRight: "10px"
+        backgroundColor: theme.palette.warning.main, color: theme.palette.getContrastText(theme.palette.warning.main), marginRight: "10px"
+    }, bookVisibility: {
+        backgroundColor: theme.palette.primary.main, color: theme.palette.getContrastText(theme.palette.secondary.main), marginRight: "10px"
     }, bookStatusContainer: {
         marginLeft: "auto"
     }, summary: {
@@ -30,10 +37,12 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "20px"
     }, bookDetails: {
         padding: "20px"
+    }, actionsContainer: {
+        marginTop: "20px"
     }
 }));
 
-const BookDetailsCard = ({book}) => {
+const AuthorBookCard = ({book, author}) => {
     const classes = useStyles();
 
     function mapStatus(status) {
@@ -42,34 +51,41 @@ const BookDetailsCard = ({book}) => {
         return null
     }
 
+    function mapVisibility(visibility) {
+        if (visibility === "null") return "Oculto";
+        if (visibility === "visible") return "Publicado";
+        return null
+    }
+
     return <Paper elevation={5}>
         <CompletionPercentageProgress progress={book.completionPercentage}/>
-        <Grid container alignItems={"center"} justify="center">
+        <Grid container justify="center" alignItems={"center"} className={classes.mainContainer}>
             <Grid item xs={12} sm={4}>
                 <img className={classes.cover} alt="book cover" src={book.cover}/>
             </Grid>
             <Grid item xs={12} sm={8}>
                 <Grid container spacing={2} className={classes.bookDetails}>
-                    <Grid item>
+                    <Grid item xs={12}>
                         <Typography variant="h4" component={"h1"} className={classes.title}>
                             {book.title}
                         </Typography>
                         <Grid container direction={"row"} alignItems={"center"}>
                             <Grid item>
                                 <Avatar
-                                    src={book.author.image}
+                                    src={author.image}
                                     className={classes.avatar}
-                                    alt={book.author.fullName}>
-                                    {book.author.fullName.charAt(0)}
+                                    alt={author.fullName}>
+                                    {author.fullName.charAt(0)}
                                 </Avatar>
                             </Grid>
                             <Grid item>
                                 <Typography variant="h6" component={"h2"} className={classes.authorName}>
-                                    {book.author.fullName}
+                                    {author.fullName}
                                 </Typography>
                             </Grid>
                             <Grid item className={classes.bookStatusContainer}>
                                 <Chip className={classes.bookStatus} label={mapStatus(book.status)}/>
+                                <Chip className={classes.bookVisibility} label={mapVisibility(book.visibility)}/>
                             </Grid>
                             <Grid item>
                                 <Typography variant={"h5"} component={"span"}
@@ -88,13 +104,25 @@ const BookDetailsCard = ({book}) => {
                             </Grid>)}
                         </Grid>
                         <Grid container className={classes.summary}>
-                            <Grid item className={classes.summaryHeader}>
+                            <Grid item xs={12} className={classes.summaryHeader}>
                                 <Typography variant={"h5"}>Resumen</Typography>
                             </Grid>
-                            <Grid item>
+                            <Grid item xs={12}>
                                 <Typography variant={"body1"}>
                                     {book.summary}
                                 </Typography>
+                            </Grid>
+                        </Grid>
+                        <Grid container className={classes.actionsContainer} spacing={2} justify={"flex-end"}>
+                            <Grid item className={classes.action}>
+                                <Button variant="contained" color="primary" onClick={() => {window.location.href = `/my-publications/${book.id}`}}>
+                                    Detalles
+                                </Button>
+                            </Grid>
+                            <Grid item className={classes.action}>
+                                <Button variant="contained" color="primary" onClick={() => {window.location.href = `/my-publications/${book.id}/edit`}}>
+                                    Editar
+                                </Button>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -104,4 +132,4 @@ const BookDetailsCard = ({book}) => {
     </Paper>
 };
 
-export default BookDetailsCard
+export default AuthorBookCard

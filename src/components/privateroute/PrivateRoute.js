@@ -1,23 +1,15 @@
 import React from "react";
 import {Route} from "react-router-dom";
-import {Redirect} from "react-router-dom";
 import {useAuth} from "../../context/auth";
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateRoute = ({component: Component, ...rest}) => {
     const isAuthenticated = useAuth();
 
-    return (
-        <Route
-            {...rest}
-            render={props =>
-                isAuthenticated ? (
-                    <Component {...props} />
-                ) : (
-                    <Redirect to="/login" />
-                )
-            }
-        />
-    );
+    if (!isAuthenticated) {
+        window.location.href = "/login?redirectTo=" + rest.path
+    }
+
+    return (<Route {...rest} render={props => <Component {...props} />} />);
 };
 
 export default PrivateRoute
