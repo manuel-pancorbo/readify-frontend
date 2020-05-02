@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import BuyChapterButton from "./BuyChapterButton";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(() => ({
     chapterContainer: {
@@ -13,8 +14,19 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const ChapterCard = ({chapter, bookId}) => {
+const ChapterCard = ({chapter, bookId, isAcquiredByReader}) => {
     const classes = useStyles();
+
+    const action = () => {
+        if (isAcquiredByReader) {
+            return <Button variant="contained" color="primary" href={"/read/chapter"}
+                           style={{display: "block", margin: "auto", marginTop: "10px"}}>
+                Leer
+            </Button>
+        } else {
+            return <BuyChapterButton bookId={bookId} chapterId={chapter.id}/>
+        }
+    }
 
     return (<Grid item xs={12} container key={chapter.id}>
         <Paper elevation={5} className={classes.chapterContainer}>
@@ -35,7 +47,7 @@ const ChapterCard = ({chapter, bookId}) => {
                             <Typography variant={"h5"} component={"span"} className={classes.price}>{chapter.price.amount}€</Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            <BuyChapterButton bookId={bookId} chapterId={chapter.id} />
+                            {action()}
                         </Grid>
                     </Grid>
                 </Grid>

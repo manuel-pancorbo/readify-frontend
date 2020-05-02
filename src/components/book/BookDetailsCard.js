@@ -78,7 +78,7 @@ const BookDetailsCard = ({book}) => {
                             </Grid>
                         </Grid>
                         <Grid container direction={"row"} alignItems={"center"} className={classes.tagContainer} spacing={1}>
-                            {book.tags.map((tag) => <Grid item>
+                            {book.tags.map((tag) => <Grid key={tag} item>
                                 <Chip
                                     size="small"
                                     label={tag}

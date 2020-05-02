@@ -9,6 +9,7 @@ import ChapterCard from "../../components/book/ChapterCard";
 import BookDiscussion from "../../components/book/BookDiscussion";
 import BookDetailsCard from "../../components/book/BookDetailsCard";
 import BuyBookFloatingActionButton from "../../components/book/BuyBookFloatingActionButton";
+import {AuthenticatedUserRepository} from "../../services/auth/AuthenticatedUserRepository";
 
 const useStyles = makeStyles((theme) => ({
     bookContainer: {
@@ -27,13 +28,21 @@ const ReaderBookDetail = ({bookId}) => {
 
     useEffect(() => {
         setOpenBackdrop(true);
-        new GetReaderBookUseCase().execute(bookId)
+        new GetReaderBookUseCase(new AuthenticatedUserRepository()).execute(bookId)
             .then((book) => {
                 setOpenBackdrop(false);
                 setBook(book);
             })
             .catch(() => (window.location.href = "/not-found"));
     }, []);
+
+    const isChapterAcquiredByReader = (chapterId) => {
+        if (book.readerOwnership.type === 'whole') {
+            return true;
+        }
+
+        return book.readerOwnership.type === 'partial' && book.readerOwnership.chapters.includes(chapterId);
+    }
 
     if (!book) {
         return <Backdrop className={classes.backdrop} open={openBackdrop}>
@@ -45,11 +54,13 @@ const ReaderBookDetail = ({bookId}) => {
         <BookDetailsCard book={book}/>
         <Grid container alignItems={"center"} justify="center" spacing={3} className={classes.chaptersContainer}>
             {book.chapters.map((chapter) => {
-                return <ChapterCard chapter={chapter} bookId={bookId}/>
+                return <ChapterCard key={chapter.id} chapter={chapter} bookId={bookId} isAcquiredByReader={isChapterAcquiredByReader(chapter.id)}/>
             })}
         </Grid>
         <BookDiscussion bookId={book.id} bookTitle={book.title}/>
-        <BuyBookFloatingActionButton bookId={bookId}/>
+        { book.readerOwnership.type !== 'whole'&&
+            <BuyBookFloatingActionButton bookId={bookId}/>
+        }
     </Container>)
 };
 
