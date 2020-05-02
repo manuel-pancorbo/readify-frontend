@@ -9,8 +9,8 @@ import {AuthenticatedUserRepository} from "../../services/auth/AuthenticatedUser
 import {GetAuthorBooksUseCase} from "../../usecases/getauthorbooks/GetAuthorBooksUseCase";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
-import Breadcrumbs from "@material-ui/core/Breadcrumbs";
+import Fab from "@material-ui/core/Fab";
+import CreateIcon from '@material-ui/icons/Create';
 
 const useStyles = makeStyles((theme) => ({
     main: {
@@ -23,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
         width: "100%"
     }, booksContainer: {
         marginTop: theme.spacing(2)
+    }, fab: {
+        margin: 0, top: 'auto', right: 40, bottom: 40, left: 'auto', position: 'fixed', width: 90, height: 90,
     }
 }));
 
@@ -63,6 +65,9 @@ const MyPublications = () => {
         <Backdrop className={classes.backdrop} open={openBackdrop}>
             <CircularProgress color="inherit"/>
         </Backdrop>
+        <Fab color="primary" aria-label="add" size={"large"} className={classes.fab} href="/write-book">
+            <CreateIcon/>
+        </Fab>
     </Container>
 }
 
