@@ -20,6 +20,7 @@ import PaymentCanceled from "./views/paymentcanceled/PaymentCanceled";
 import PaymentSuccess from "./views/paymentsuccess/PaymentSuccess";
 import PostBook from "./views/postbook/PostBook";
 import MyPublications from "./views/mypublications/MyPublications";
+import EditBook from "./views/editbook/EditBook";
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -50,8 +51,8 @@ const App = () => {
                     </Route>
                     <Route
                         path="/books/:bookId"
-                        render={({ match }) => {
-                            return (<ReaderBookDetail bookId={match.params.bookId} />)
+                        render={({match}) => {
+                            return (<ReaderBookDetail bookId={match.params.bookId}/>)
                         }}
                     />
                     <Route exact path="/logout">
@@ -60,6 +61,12 @@ const App = () => {
                     <PrivateRoute exact path="/profile" component={UserProfile}/>
                     <PrivateRoute exact path="/my-publications" component={MyPublications}/>
                     <PrivateRoute exact path="/write-book" component={PostBook}/>
+                    <PrivateRoute
+                        exact path="/my-publications/:bookId/edit"
+                        component={({match}) => {
+                            return (<EditBook bookId={match.params.bookId}/>)
+                        }}
+                    />
                     <Route path="*">
                         <NotFound/>
                     </Route>

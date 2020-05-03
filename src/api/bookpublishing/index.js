@@ -13,6 +13,19 @@ export const postBook = (author, book) => {
         .then((response) => Promise.resolve(response.data.id))
 }
 
+export const editBook = (author, book) => {
+    const httpBook = {
+        title: book.title, cover: book.cover, price: {amount: book.price, currency: "EUR"}, tags: book.tags, summary: book.summary,
+    }
+
+    const headers = {
+        'Content-Type': 'application/json', 'Authorization': `Bearer ${author.token}`
+    };
+
+    return axios.patch(`/v1/authors/${author.id}/books/${book.id}`, httpBook, {headers: headers})
+        .then((response) => Promise.resolve(response.data.id))
+}
+
 export const getAuthorBooks = (author) => {
     const headers = {
         'Content-Type': 'application/json', 'Authorization': `Bearer ${author.token}`
@@ -20,4 +33,17 @@ export const getAuthorBooks = (author) => {
 
     return axios.get(`/v1/authors/${author.id}/books`, {headers: headers})
         .then((response) => Promise.resolve(response.data.books))
+}
+
+export const getAuthorBookById = (bookId, author) => {
+    const headers = {
+        'Content-Type': 'application/json', 'Authorization': `Bearer ${author.token}`
+    };
+
+    return axios.get(`/v1/authors/${author.id}/books/${bookId}`, {headers: headers})
+        .then((response) => {
+            let book = response.data
+            book.price = book.price.amount
+            return Promise.resolve(response.data)
+        })
 }

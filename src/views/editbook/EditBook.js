@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
@@ -10,6 +10,8 @@ import Backdrop from "@material-ui/core/Backdrop";
 import {useAuth} from "../../context/auth";
 import PostBookPreview from "../../components/postbook/PostBookPreview";
 import BookForm from "../../components/postbook/BookForm";
+import {GetAuthorBookByIdUseCase} from "../../usecases/getauthorbookbyid/GetAuthorBookByIdUseCase";
+import {EditBookUseCase} from "../../usecases/editbook/EditBookUseCase";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -25,20 +27,31 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const PostBook = () => {
+const EditBook = ({bookId}) => {
     const classes = useStyles();
-    const [book, setBook] = useState(null);
-    const author = useAuth();
+    const [book, setBook] = useState(null)
     const [loading, setLoading] = useState(false);
+    const author = useAuth();
 
-    function postBook(bookData) {
-        setLoading(true);
-        new PostBookUseCase(new AuthenticatedUserRepository()).execute({
+    useEffect(() => {
+        new GetAuthorBookByIdUseCase(new AuthenticatedUserRepository()).execute(bookId)
+            .then((book) => {
+                setBook(book)
+            })
+            .catch((error) => console.error(error))
+    }, []);
+
+    function editBook(bookData) {
+        setLoading(true)
+        new EditBookUseCase(new AuthenticatedUserRepository()).execute({
+            id: bookId,
             title: bookData['title'],
             cover: bookData['cover'],
             price: bookData['price'],
             tags: bookData['tags'],
-            summary: bookData['summary']
+            summary: bookData['summary'],
+            visibility: bookData['visibility'],
+            completionPercentage: bookData['completionPercentage']
         })
             .then((bookId) => {
                 setLoading(false)
@@ -56,11 +69,11 @@ const PostBook = () => {
                 <div className={classes.paper}>
                     <Typography component="h1" variant="h4">
                         Write a new book
-                    </Typography>"
-                    <BookForm book={book} onSubmit={(book) => postBook(book)} onBookChange={(book) => setBook(book)} action={"create"}/>
+                    </Typography>
+                    <BookForm book={book} onSubmit={(book) => editBook(book)} onBookChange={(book) => setBook(book)} action={!book ? "create" : "edit"}/>
                 </div>
             </Grid>
-            <PostBookPreview book={book} author={author}/>
+            <PostBookPreview book={!book ? {} : book} author={author}/>
         </Grid>
         <Backdrop className={classes.backdrop} open={loading}>
             <CircularProgress color="inherit"/>
@@ -68,4 +81,4 @@ const PostBook = () => {
     </Container>);
 }
 
-export default PostBook
+export default EditBook

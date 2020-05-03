@@ -25,13 +25,18 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const PostBookPreview = ({title, cover, price, summary, tags, author}) => {
+const PostBookPreview = ({book, author}) => {
     const classes = useStyles();
+    const defaultBook = {
+        title: "Title preview", cover: "default-cover.jpg", tags: ["tags", "preview"], price: "12.99", summary: ""
+    }
+
+    book = {...defaultBook, ...book}
 
     return <Grid item xs={12} sm={6} md={5} className={classes.preview}>
         <Grid container direction={"column"}>
             <Grid item className={classes.titlePreview}>
-                <Typography component={"h2"} variant={"h4"}>{!title ? 'Title preview' : title}</Typography>
+                <Typography component={"h2"} variant={"h4"}>{book.title}</Typography>
             </Grid>
             <Grid container direction={"row"} alignItems={"center"} className={classes.author}>
                 <Grid item>
@@ -49,12 +54,11 @@ const PostBookPreview = ({title, cover, price, summary, tags, author}) => {
                 </Grid>
             </Grid>
             <Grid item>
-                <img className={classes.coverPreview} alt="book cover" src={!cover ? 'default-cover.jpg' : cover }/>
+                <img className={classes.coverPreview} alt="book cover" src={book.cover}/>
             </Grid>
             <Grid container direction={"row"} alignItems={"center"} className={classes.tagContainer} spacing={1}>
-                { (!tags ? "tags preview" : tags).split(" ").map((tag) => <Grid key={tag} item>
+                {book.tags.map((tag) => <Grid key={tag} item>
                     <Chip
-                        size="large"
                         label={tag}
                         clickable
                         color="primary"
@@ -62,14 +66,14 @@ const PostBookPreview = ({title, cover, price, summary, tags, author}) => {
                     />
                 </Grid>)}
             </Grid>
-            <Grid item className={classes.pricePreview} justify={"end"}>
-                <Typography variant={"h5"} component={"span"}>{!price ? "0,00" : price}€</Typography>
+            <Grid item className={classes.pricePreview}>
+                <Typography variant={"h5"} component={"span"}>{book.price}€</Typography>
             </Grid>
             <Typography variant={"h5"} className={classes.summaryPreview}>
                 Resumen
             </Typography>
             <Typography variant={"body1"} className={classes.summaryPreview}>
-                {summary}
+                {book.summary}
             </Typography>
         </Grid>
     </Grid>
