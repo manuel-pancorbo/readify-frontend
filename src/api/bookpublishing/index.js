@@ -15,7 +15,13 @@ export const postBook = (author, book) => {
 
 export const editBook = (author, book) => {
     const httpBook = {
-        title: book.title, cover: book.cover, price: {amount: book.price, currency: "EUR"}, tags: book.tags, summary: book.summary,
+        title: book.title,
+        cover: book.cover,
+        price: {amount: book.price, currency: "EUR"},
+        tags: book.tags,
+        summary: book.summary,
+        completionPercentage: book.completionPercentage,
+        visibility: book.visibility
     }
 
     const headers = {
@@ -23,7 +29,7 @@ export const editBook = (author, book) => {
     };
 
     return axios.patch(`/v1/authors/${author.id}/books/${book.id}`, httpBook, {headers: headers})
-        .then((response) => Promise.resolve(response.data.id))
+        .then(() => Promise.resolve())
 }
 
 export const getAuthorBooks = (author) => {

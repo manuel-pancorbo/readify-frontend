@@ -52,7 +52,7 @@ const AuthorBookCard = ({book, author}) => {
     }
 
     function mapVisibility(visibility) {
-        if (visibility === "null") return "Oculto";
+        if (visibility === "null") return "No publicado";
         if (visibility === "visible") return "Publicado";
         return null
     }

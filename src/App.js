@@ -60,7 +60,7 @@ const App = () => {
                     </Route>
                     <PrivateRoute exact path="/profile" component={UserProfile}/>
                     <PrivateRoute exact path="/my-publications" component={MyPublications}/>
-                    <PrivateRoute exact path="/write-book" component={PostBook}/>
+                    <PrivateRoute exact path="/post-book" component={PostBook}/>
                     <PrivateRoute
                         exact path="/my-publications/:bookId/edit"
                         component={({match}) => {

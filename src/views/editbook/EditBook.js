@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {AuthenticatedUserRepository} from "../../services/auth/AuthenticatedUserRepository";
-import {PostBookUseCase} from "../../usecases/postbook/PostBookUseCase";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 import {useAuth} from "../../context/auth";
@@ -35,9 +34,7 @@ const EditBook = ({bookId}) => {
 
     useEffect(() => {
         new GetAuthorBookByIdUseCase(new AuthenticatedUserRepository()).execute(bookId)
-            .then((book) => {
-                setBook(book)
-            })
+            .then((book) => setBook(book))
             .catch((error) => console.error(error))
     }, []);
 
@@ -53,7 +50,7 @@ const EditBook = ({bookId}) => {
             visibility: bookData['visibility'],
             completionPercentage: bookData['completionPercentage']
         })
-            .then((bookId) => {
+            .then(() => {
                 setLoading(false)
                 window.location.href = `/my-publications/${bookId}`
             })
@@ -68,9 +65,10 @@ const EditBook = ({bookId}) => {
             <Grid item xs={12} sm={6} md={5}>
                 <div className={classes.paper}>
                     <Typography component="h1" variant="h4">
-                        Write a new book
+                        Editing book
                     </Typography>
-                    <BookForm book={book} onSubmit={(book) => editBook(book)} onBookChange={(book) => setBook(book)} action={!book ? "create" : "edit"}/>
+                    <BookForm book={book} onSubmit={(book) => editBook(book)} onBookChange={(book) => setBook(book)}
+                              action={!book ? "create" : "edit"}/>
                 </div>
             </Grid>
             <PostBookPreview book={!book ? {} : book} author={author}/>

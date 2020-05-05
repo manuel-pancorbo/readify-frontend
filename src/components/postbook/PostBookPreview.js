@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import {makeStyles} from "@material-ui/core/styles";
+import CompletionPercentageProgress from "../book/CompletionPercentageProgress";
 
 const useStyles = makeStyles((theme) => ({
     avatar: {
@@ -22,18 +23,22 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.text.secondary
     }, author: {
         marginBottom: theme.spacing(2), fontSize: "1rem"
+    }, bookVisibility: {
+        marginLeft: "auto", marginBottom: "15px"
     }
 }));
 
 const PostBookPreview = ({book, author}) => {
     const classes = useStyles();
+    const isBookVisible = () => book.visibility === "visible"
     const defaultBook = {
-        title: "Title preview", cover: "default-cover.jpg", tags: ["tags", "preview"], price: "12.99", summary: ""
+        title: "Title preview", cover: "default-cover.jpg", tags: ["tags", "preview"], price: "12.99", summary: "", completionPercentage: 0, visibility: "null"
     }
 
     book = {...defaultBook, ...book}
 
     return <Grid item xs={12} sm={6} md={5} className={classes.preview}>
+        <CompletionPercentageProgress progress={book.completionPercentage}/>
         <Grid container direction={"column"}>
             <Grid item className={classes.titlePreview}>
                 <Typography component={"h2"} variant={"h4"}>{book.title}</Typography>
@@ -52,6 +57,10 @@ const PostBookPreview = ({book, author}) => {
                         {author.fullName}
                     </Typography>
                 </Grid>
+            </Grid>
+            <Grid item className={classes.bookVisibility}>
+                <Chip color={ isBookVisible() ? "primary" : "secondary"} className={classes.visibility}
+                      label={ isBookVisible() ? "Published" : "Not published"}/>
             </Grid>
             <Grid item>
                 <img className={classes.coverPreview} alt="book cover" src={book.cover}/>

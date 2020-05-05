@@ -65,7 +65,7 @@ const MyPublications = () => {
         <Backdrop className={classes.backdrop} open={openBackdrop}>
             <CircularProgress color="inherit"/>
         </Backdrop>
-        <Fab color="primary" aria-label="add" size={"large"} className={classes.fab} href="/write-book">
+        <Fab color="primary" aria-label="add" size={"large"} className={classes.fab} href="/post-book">
             <CreateIcon/>
         </Fab>
     </Container>

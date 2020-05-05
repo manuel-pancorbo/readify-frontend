@@ -1,9 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import {useForm} from "react-hook-form";
 import {makeStyles} from "@material-ui/core/styles";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -16,6 +19,8 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(8)
     }, backdrop: {
         zIndex: theme.zIndex.drawer + 1, color: '#fff'
+    }, completionPercentageSlider: {
+        marginTop: "30px"
     }
 }));
 
@@ -24,6 +29,7 @@ const BookForm = ({book, onBookChange, onSubmit, action}) => {
     const {register, handleSubmit, getValues} = useForm();
 
     const handleInputChange = () => onBookChange(normalizeFormData(getValues()))
+    const isBookVisible = () => book.visibility === "visible"
 
     const normalizeFormData = (formData) => {
         if (formData.title === "") {
@@ -44,9 +50,23 @@ const BookForm = ({book, onBookChange, onSubmit, action}) => {
             formData.tags = formData.tags.split(" ")
         }
 
+        if (formData.visibility) {
+            formData.visibility = "visible"
+        } else {
+            formData.visibility = "null"
+        }
+
+        if (isNaN(parseInt(formData.completionPercentage))) {
+            formData.completionPercentage = 0
+        } else {
+            formData.completionPercentage = parseInt(formData.completionPercentage)
+        }
+
+        formData.completionPercentage = parseInt(formData.completionPercentage)
+
         return formData
     }
-    
+
     return <form className={classes.form}
                  onSubmit={handleSubmit((formData) => onSubmit(normalizeFormData(formData)))}>
         <Grid container spacing={2}>
@@ -107,6 +127,34 @@ const BookForm = ({book, onBookChange, onSubmit, action}) => {
                     value={book ? book.price : ""}
                 />
             </Grid>
+            {action === "edit" && <Grid item xs={12}>
+                <TextField
+                    autoComplete="Completion percentage"
+                    name="completionPercentage"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    type={"number"}
+                    inputProps={{min: 0, max: 100}}
+                    id="completionPercentage"
+                    label="Completion Percentage"
+                    onChange={handleInputChange}
+                    inputRef={register}
+                    value={book ? book.completionPercentage : 0}
+                />
+            </Grid>}
+            {action === "edit" && <Grid item xs={12}>
+                <FormControlLabel
+                    control={<Tooltip placement="top-start" title="Once published, a book cannot be unpublished"><Switch color="primary"
+                                                                                                                         checked={isBookVisible()}
+                                                                                                                         inputRef={register}
+                                                                                                                         inputProps={{
+                                                                                                                             onChange: handleInputChange,
+                                                                                                                             name: "visibility"
+                                                                                                                         }}/></Tooltip>}
+                    label="visibility"
+                />
+            </Grid>}
             <Grid item xs={12}>
                 <TextField
                     variant="outlined"
