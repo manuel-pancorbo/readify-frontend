@@ -87,7 +87,7 @@ const BookDetailsCard = ({book}) => {
                                 />
                             </Grid>)}
                         </Grid>
-                        <Grid container className={classes.summary}>
+                        <Grid container className={classes.summary} direction={"column"}>
                             <Grid item className={classes.summaryHeader}>
                                 <Typography variant={"h5"}>Resumen</Typography>
                             </Grid>

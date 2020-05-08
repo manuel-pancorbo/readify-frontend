@@ -14,8 +14,6 @@ import BookForm from "../../components/postbook/BookForm";
 const useStyles = makeStyles((theme) => ({
     paper: {
         display: 'flex', flexDirection: 'column', alignItems: 'center',
-    }, form: {
-        marginTop: theme.spacing(3), width: '100%', // Fix IE 11 issue.
     }, submit: {
         margin: theme.spacing(3, 0, 2),
     }, mainContainer: {

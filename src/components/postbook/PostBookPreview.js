@@ -32,7 +32,7 @@ const PostBookPreview = ({book, author}) => {
     const classes = useStyles();
     const isBookVisible = () => book.visibility === "visible"
     const defaultBook = {
-        title: "Title preview", cover: "default-cover.jpg", tags: ["tags", "preview"], price: "12.99", summary: "", completionPercentage: 0, visibility: "null"
+        title: "Title preview", cover: "default-cover.jpg", tags: ["tags", "preview"], price: "0.00", summary: "", completionPercentage: 0, visibility: "null"
     }
 
     book = {...defaultBook, ...book}

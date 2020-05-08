@@ -53,3 +53,20 @@ export const getAuthorBookById = (bookId, author) => {
             return Promise.resolve(response.data)
         })
 }
+
+export const postBookChapter = (author, book, chapter) => {
+    const httpBook = {
+        title: chapter.title,
+        order: chapter.order,
+        price: {amount: chapter.price, currency: "EUR"},
+        excerpt: chapter.excerpt,
+        content: chapter.content,
+    }
+
+    const headers = {
+        'Content-Type': 'application/json', 'Authorization': `Bearer ${author.token}`
+    };
+
+    return axios.post(`/v1/authors/${author.id}/books/${book.id}/chapters`, httpBook, {headers: headers})
+        .then((response) => Promise.resolve(response.data))
+}
