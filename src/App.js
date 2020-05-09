@@ -23,6 +23,7 @@ import MyPublications from "./views/mypublications/MyPublications";
 import EditBook from "./views/editbook/EditBook";
 import PostBookChapter from "./views/postbookchapter/PostBookChapter";
 import EditBookChapter from "./views/editbookchapter/EditBookChapter";
+import MyPayments from "./views/mypayments/MyPayments";
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -61,6 +62,7 @@ const App = () => {
                         <Logout/>
                     </Route>
                     <PrivateRoute exact path="/profile" component={UserProfile}/>
+                    <PrivateRoute exact path="/my-payments" component={MyPayments}/>
                     <PrivateRoute exact path="/my-publications" component={MyPublications}/>
                     <PrivateRoute exact path="/post-book" component={PostBook}/>
                     <PrivateRoute

@@ -19,3 +19,12 @@ export const getReaderBook = (reader, bookId) => {
             return Promise.reject(error)
         })
 }
+
+export const getReaderPayments = (reader) => {
+    const headers = {
+        'Content-Type': 'application/json', 'Authorization': `Bearer ${reader.token}`
+    };
+
+    return axios.get(`/v1/readers/${reader.id}/payments`, {headers: headers})
+        .then((response) => Promise.resolve(response.data.payments))
+}
