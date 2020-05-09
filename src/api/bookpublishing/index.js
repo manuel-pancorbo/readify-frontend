@@ -54,8 +54,21 @@ export const getAuthorBookById = (bookId, author) => {
         })
 }
 
+export const getAuthorBookChapterById = (bookId, chapterId, author) => {
+    const headers = {
+        'Content-Type': 'application/json', 'Authorization': `Bearer ${author.token}`
+    };
+
+    return axios.get(`/v1/authors/${author.id}/books/${bookId}/chapters/${chapterId}`, {headers: headers})
+        .then((response) => {
+            let chapter = response.data
+            chapter.price = chapter.price.amount
+            return Promise.resolve(chapter)
+        })
+}
+
 export const postBookChapter = (author, book, chapter) => {
-    const httpBook = {
+    const httpChapter = {
         title: chapter.title,
         order: chapter.order,
         price: {amount: chapter.price, currency: "EUR"},
@@ -67,6 +80,24 @@ export const postBookChapter = (author, book, chapter) => {
         'Content-Type': 'application/json', 'Authorization': `Bearer ${author.token}`
     };
 
-    return axios.post(`/v1/authors/${author.id}/books/${book.id}/chapters`, httpBook, {headers: headers})
+    return axios.post(`/v1/authors/${author.id}/books/${book.id}/chapters`, httpChapter, {headers: headers})
+        .then((response) => Promise.resolve(response.data))
+}
+
+export const editBookChapter = (author, book, chapter) => {
+    const httpChapter = {
+        title: chapter.title,
+        order: chapter.order,
+        price: {amount: chapter.price, currency: "EUR"},
+        excerpt: chapter.excerpt,
+        content: chapter.content,
+        status: chapter.status
+    }
+
+    const headers = {
+        'Content-Type': 'application/json', 'Authorization': `Bearer ${author.token}`
+    };
+
+    return axios.patch(`/v1/authors/${author.id}/books/${book.id}/chapters/${chapter.id}`, httpChapter, {headers: headers})
         .then((response) => Promise.resolve(response.data))
 }
