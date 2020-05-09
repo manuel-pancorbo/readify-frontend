@@ -54,6 +54,7 @@ const AuthorBookDetails = ({bookId}) => {
                 return <AuthorChapterCard key={chapter.id} chapter={chapter} bookId={bookId}/>
             })}
         </Grid>}
+        {book && <BookDiscussion bookId={book.id} bookTitle={book.title}/>}
         <Fab color="primary" aria-label="add" size={"large"} className={classes.fab} href={`/my-publications/${bookId}/post-chapter`}>
             <CreateIcon/>
         </Fab>
