@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Header from './components/header/Header';
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
@@ -25,13 +25,16 @@ import PostBookChapter from "./views/postbookchapter/PostBookChapter";
 import EditBookChapter from "./views/editbookchapter/EditBookChapter";
 import MyPayments from "./views/mypayments/MyPayments";
 import AuthorBookDetails from "./views/authorbookdetails/AuthorBookDetails";
+import ReaderChapter from "./views/readerchapter/ReaderChapter";
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 const App = () => {
+    const [themeType, setThemeType] = useState("light");
+
     return <AuthContext.Provider value={new AuthenticatedUserRepository().getUser()}>
-        <ThemeProvider theme={createMuiTheme({palette: {type: 'light'}})}><CssBaseline/>
+        <ThemeProvider theme={createMuiTheme({palette: {type: themeType}})}><CssBaseline/>
             <Router>
                 <Header/>
                 <Switch>
@@ -63,6 +66,13 @@ const App = () => {
                         <Logout/>
                     </Route>
                     <PrivateRoute exact path="/profile" component={UserProfile}/>
+                    <PrivateRoute exact path="/my-books/:bookId/chapters/:chapterId" component={({match}) => {
+                        return (<ReaderChapter bookId={match.params.bookId} chapterId={match.params.chapterId}
+                                               onDarkModeEnabled={() => setThemeType('dark')}
+                                               onLightModeEnabled={() => setThemeType('light')}
+                                               currentTheme={themeType}
+                        />)
+                    }}/>
                     <PrivateRoute exact path="/my-payments" component={MyPayments}/>
                     <PrivateRoute exact path="/my-publications" component={MyPublications}/>
                     <PrivateRoute exact path="/post-book" component={PostBook}/>

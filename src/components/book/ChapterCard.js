@@ -19,7 +19,7 @@ const ChapterCard = ({chapter, bookId, isAcquiredByReader}) => {
 
     const action = () => {
         if (isAcquiredByReader) {
-            return <Button variant="contained" color="primary" href={"/read/chapter"}
+            return <Button variant="contained" color="primary" href={`/my-books/${bookId}/chapters/${chapter.id}`}
                            style={{display: "block", margin: "auto", marginTop: "10px"}}>
                 Leer
             </Button>
