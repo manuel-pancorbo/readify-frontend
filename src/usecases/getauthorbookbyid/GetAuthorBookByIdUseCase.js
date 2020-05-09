@@ -1,4 +1,4 @@
-import {getAuthorBookById} from "../../api/bookpublishing";
+import {getAuthorBookById, getAuthorBookChapterById, getAuthorBookChaptersByBookId} from "../../api/bookpublishing";
 
 export class GetAuthorBookByIdUseCase {
 
@@ -6,7 +6,16 @@ export class GetAuthorBookByIdUseCase {
         this._authenticatedUserRepository = authenticatedUserRepository
     }
 
-    execute(bookId) {
-        return getAuthorBookById(bookId, this._authenticatedUserRepository.getUser())
+    execute(bookId, includeChapters) {
+        const author = this._authenticatedUserRepository.getUser();
+        if (!includeChapters) {
+            return getAuthorBookById(bookId, author)
+        }
+
+        return Promise.all([getAuthorBookById(bookId, author), getAuthorBookChaptersByBookId(bookId, author)])
+            .then(([book, chapters]) => {
+                book.chapters = chapters
+                return Promise.resolve(book)
+            })
     }
 }

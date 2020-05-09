@@ -23,34 +23,32 @@ const formStyles = makeStyles((theme) => ({
     }
 }));
 
-const ChapterForm = ({chapter, action, onSubmit}) => {
+const ChapterForm = ({chapter, action, onSubmit, onChange}) => {
     const classes = formStyles();
     const [chapterContent, setChapterContent] = useState(null)
-    const [isStatusChecked, setStatusChecked] = useState(false)
     const {register, handleSubmit, getValues} = useForm();
-    const appendContentToFormData = formData => {
-        formData.content = chapterContent
-
-        if (formData.status) {
-            formData.status = "published"
-        } else {
-            formData.status = "draft"
-        }
-
-        return formData
-    }
+    const isChapterPublished = () => chapter.status === "published"
     const isEditAction = () => action === "edit"
-    const handleStatusChange = () => setStatusChecked(getValues().status)
+    const handleInputChange = () => onChange(normalizeChapterData(getValues()))
+    const normalizeChapterData = formValues => { return {
+        status: (formValues.status) ? "published" : "draft",
+        order: formValues.order,
+        title: formValues.title,
+        price: formValues.price,
+        excerpt: formValues.excerpt,
+        content: getContent()
+    }}
+    const getContent = () => (isEditAction() && !chapterContent && chapter) ? chapter.content : chapterContent
 
-    return <form className={classes.form} onSubmit={handleSubmit(formData => onSubmit(appendContentToFormData(formData)))}>
+    return <form className={classes.form} onSubmit={handleSubmit(formData => onSubmit(normalizeChapterData(formData)))}>
         <Grid container spacing={2}>
             <Grid container direction={"row"} spacing={2}>
                 {action === "edit" && <Grid item xs={12}>
                     <FormControlLabel
                         control={<Tooltip placement="top-start" title="Once published, a chapter cannot be unpublished">
-                            <Switch color="primary" checked={isStatusChecked} inputRef={register} inputProps={{ name: "status", onChange: handleStatusChange}}/>
+                            <Switch color="primary" checked={isChapterPublished()} inputRef={register} inputProps={{ name: "status", onChange: handleInputChange}}/>
                         </Tooltip>}
-                        label={isStatusChecked ? "Published" : "Draft"}
+                        label={isChapterPublished() ? "Published" : "Draft"}
                     />
                 </Grid>}
                 <Grid item xs={2}>
@@ -66,7 +64,9 @@ const ChapterForm = ({chapter, action, onSubmit}) => {
                         type={"number"}
                         inputRef={register}
                         value={chapter ? chapter.order : ""}
+                        onChange={handleInputChange}
                     />
+
                 </Grid>
                 <Grid item xs={7}>
                     <TextField
@@ -79,6 +79,7 @@ const ChapterForm = ({chapter, action, onSubmit}) => {
                         label="Title"
                         inputRef={register}
                         value={chapter ? chapter.title : ""}
+                        onChange={handleInputChange}
                     />
                 </Grid>
                 <Grid item xs={3}>
@@ -92,6 +93,7 @@ const ChapterForm = ({chapter, action, onSubmit}) => {
                         label="Price"
                         inputRef={register}
                         value={chapter ? chapter.price : ""}
+                        onChange={handleInputChange}
                     />
                 </Grid>
             </Grid>
@@ -106,12 +108,13 @@ const ChapterForm = ({chapter, action, onSubmit}) => {
                     autoComplete="excerpt"
                     multiline={true}
                     rows={5}
+                    onChange={handleInputChange}
                     inputRef={register}
                     value={chapter ? chapter.excerpt : ""}
                 />
             </Grid>
             <Grid item xs={12}>
-                <ChapterContentField content={(isEditAction() && !chapterContent && chapter) ? chapter.content : chapterContent} onChange={({text}) => setChapterContent(text)}/>
+                <ChapterContentField content={getContent()} onChange={({text}) => setChapterContent(text)}/>
             </Grid>
         </Grid>
         <Grid item xs={6} md={3} className={classes.submitContainer}>

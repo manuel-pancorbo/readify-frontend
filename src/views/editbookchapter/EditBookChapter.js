@@ -64,7 +64,7 @@ const EditBookChapter = ({bookId, chapterId}) => {
                     <Typography component="h1" variant="h4">
                         Editing chapter for {(book) && book.title}
                     </Typography>
-                    <ChapterForm action={"edit"} chapter={chapter} onSubmit={editBookChapter}/>
+                    <ChapterForm action={!chapter ? "create" : "edit"} chapter={chapter} onSubmit={editBookChapter} onChange={setChapter}/>
                 </div>
             </Grid>
         </Grid>

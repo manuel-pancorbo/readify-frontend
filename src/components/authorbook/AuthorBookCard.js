@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const AuthorBookCard = ({book, author}) => {
+const AuthorBookCard = ({book, author, includeDetailsAction}) => {
     const classes = useStyles();
 
     function mapStatus(status) {
@@ -89,7 +89,7 @@ const AuthorBookCard = ({book, author}) => {
                             </Grid>
                             <Grid item>
                                 <Typography variant={"h5"} component={"span"}
-                                            className={classes.price}>{book.price.amount}€</Typography>
+                                            className={classes.price}>{book.price}€</Typography>
                             </Grid>
                         </Grid>
                         <Grid container direction={"row"} alignItems={"center"} className={classes.tagContainer} spacing={1}>
@@ -114,11 +114,11 @@ const AuthorBookCard = ({book, author}) => {
                             </Grid>
                         </Grid>
                         <Grid container className={classes.actionsContainer} spacing={2} justify={"flex-end"}>
-                            <Grid item className={classes.action}>
+                            {includeDetailsAction && <Grid item className={classes.action}>
                                 <Button variant="contained" color="primary" onClick={() => {window.location.href = `/my-publications/${book.id}`}}>
                                     Detalles
                                 </Button>
-                            </Grid>
+                            </Grid>}
                             <Grid item className={classes.action}>
                                 <Button variant="contained" color="primary" onClick={() => {window.location.href = `/my-publications/${book.id}/edit`}}>
                                     Editar

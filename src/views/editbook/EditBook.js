@@ -33,7 +33,7 @@ const EditBook = ({bookId}) => {
     const author = useAuth();
 
     useEffect(() => {
-        new GetAuthorBookByIdUseCase(new AuthenticatedUserRepository()).execute(bookId)
+        new GetAuthorBookByIdUseCase(new AuthenticatedUserRepository()).execute(bookId, false)
             .then((book) => setBook(book))
             .catch((error) => console.error(error))
     }, []);

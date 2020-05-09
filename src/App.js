@@ -24,6 +24,7 @@ import EditBook from "./views/editbook/EditBook";
 import PostBookChapter from "./views/postbookchapter/PostBookChapter";
 import EditBookChapter from "./views/editbookchapter/EditBookChapter";
 import MyPayments from "./views/mypayments/MyPayments";
+import AuthorBookDetails from "./views/authorbookdetails/AuthorBookDetails";
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -69,6 +70,12 @@ const App = () => {
                         exact path="/my-publications/:bookId/edit"
                         component={({match}) => {
                             return (<EditBook bookId={match.params.bookId}/>)
+                        }}
+                    />
+                    <PrivateRoute
+                        exact path="/my-publications/:bookId"
+                        component={({match}) => {
+                            return (<AuthorBookDetails bookId={match.params.bookId}/>)
                         }}
                     />
                     <PrivateRoute

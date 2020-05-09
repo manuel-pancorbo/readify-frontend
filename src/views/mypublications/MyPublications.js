@@ -59,7 +59,7 @@ const MyPublications = () => {
         {(!books || books.length === 0) && noBooksText}
         {books && <Grid container spacing={5} className={classes.booksContainer}>
             {books.map((book) => <Grid item key={book.id} className={classes.bookContainer}>
-                <AuthorBookCard book={book} author={author}/>
+                <AuthorBookCard book={book} author={author} includeDetailsAction={true}/>
             </Grid>)}
         </Grid>}
         <Backdrop className={classes.backdrop} open={openBackdrop}>

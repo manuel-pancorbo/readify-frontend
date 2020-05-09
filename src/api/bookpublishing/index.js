@@ -38,7 +38,10 @@ export const getAuthorBooks = (author) => {
     };
 
     return axios.get(`/v1/authors/${author.id}/books`, {headers: headers})
-        .then((response) => Promise.resolve(response.data.books))
+        .then((response) => Promise.resolve(response.data.books.map(book => {
+            book.price = book.price.amount
+            return book
+        })))
 }
 
 export const getAuthorBookById = (bookId, author) => {
@@ -100,4 +103,16 @@ export const editBookChapter = (author, book, chapter) => {
 
     return axios.patch(`/v1/authors/${author.id}/books/${book.id}/chapters/${chapter.id}`, httpChapter, {headers: headers})
         .then((response) => Promise.resolve(response.data))
+}
+
+export const getAuthorBookChaptersByBookId = (bookId, author) => {
+    const headers = {
+        'Content-Type': 'application/json', 'Authorization': `Bearer ${author.token}`
+    };
+
+    return axios.get(`/v1/authors/${author.id}/books/${bookId}/chapters`, {headers: headers})
+        .then((response) => Promise.resolve(response.data.chapters.map(chapter => {
+            chapter.price = chapter.price.amount
+            return chapter
+        })))
 }

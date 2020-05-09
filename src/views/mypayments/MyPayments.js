@@ -43,9 +43,7 @@ const MyPayments = () => {
     useEffect(() => {
         setOpenBackdrop(true)
         new GetReaderPaymentsUseCase(new AuthenticatedUserRepository()).execute()
-            .then((payments) => {
-                setPayments(payments)
-            })
+            .then((payments) => setPayments(payments))
             .catch((error) => console.error(error))
             .finally(() => setOpenBackdrop(false))
     }, []);

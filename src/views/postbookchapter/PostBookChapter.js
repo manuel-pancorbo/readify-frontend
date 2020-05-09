@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 const PostBookChapter = ({bookId}) => {
     const [loading, setLoading] = useState(false)
     const [book, setBook] = useState(null)
+    const [chapter, setChapter] = useState(null)
     const classes = useStyles();
 
     function postBookChapter(bookChapterData) {
@@ -42,7 +43,7 @@ const PostBookChapter = ({bookId}) => {
 
     useEffect(() => {
         setLoading(true)
-        new GetAuthorBookByIdUseCase(new AuthenticatedUserRepository()).execute(bookId)
+        new GetAuthorBookByIdUseCase(new AuthenticatedUserRepository()).execute(bookId, false)
             .then((book) => setBook(book))
             .catch((error) => console.error(error))
             .finally(() => setLoading(false))
@@ -55,7 +56,7 @@ const PostBookChapter = ({bookId}) => {
                     <Typography component="h1" variant="h4">
                         Post a new chapter for {(book) && book.title}
                     </Typography>
-                    <ChapterForm action={"create"} onSubmit={postBookChapter}/>
+                    <ChapterForm chapter={chapter} action={"create"} onSubmit={postBookChapter} onChange={chapter => setChapter(chapter)}/>
                 </div>
             </Grid>
         </Grid>
