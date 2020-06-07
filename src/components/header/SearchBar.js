@@ -65,7 +65,7 @@ const SearchBar = () => {
 
     return (<div className={classes.search}>
         <InputBase
-            placeholder="Search Readify"
+            placeholder="Buscar"
             classes={{
                 root: classes.inputRoot, input: classes.inputInput,
             }}

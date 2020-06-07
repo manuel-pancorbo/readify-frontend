@@ -45,10 +45,10 @@ const ChapterForm = ({chapter, action, onSubmit, onChange}) => {
             <Grid container direction={"row"} spacing={2}>
                 {action === "edit" && <Grid item xs={12}>
                     <FormControlLabel
-                        control={<Tooltip placement="top-start" title="Once published, a chapter cannot be unpublished">
+                        control={<Tooltip placement="top-start" title="Una vez publicado, un capítulo no puede ocultarse">
                             <Switch color="primary" checked={isChapterPublished()} inputRef={register} inputProps={{ name: "status", onChange: handleInputChange}}/>
                         </Tooltip>}
-                        label={isChapterPublished() ? "Published" : "Draft"}
+                        label={isChapterPublished() ? "Publicado" : "Borrador"}
                     />
                 </Grid>}
                 <Grid item xs={2}>
@@ -59,7 +59,7 @@ const ChapterForm = ({chapter, action, onSubmit, onChange}) => {
                         required
                         fullWidth
                         id="order"
-                        label="Order"
+                        label="Orden"
                         autoFocus
                         type={"number"}
                         inputRef={register}
@@ -76,7 +76,7 @@ const ChapterForm = ({chapter, action, onSubmit, onChange}) => {
                         required
                         fullWidth
                         id="title"
-                        label="Title"
+                        label="Titulo"
                         inputRef={register}
                         value={chapter ? chapter.title : ""}
                         onChange={handleInputChange}
@@ -90,7 +90,7 @@ const ChapterForm = ({chapter, action, onSubmit, onChange}) => {
                         required
                         fullWidth
                         id="price"
-                        label="Price"
+                        label="Precio"
                         inputRef={register}
                         value={chapter ? chapter.price : ""}
                         onChange={handleInputChange}
@@ -103,7 +103,7 @@ const ChapterForm = ({chapter, action, onSubmit, onChange}) => {
                     required
                     fullWidth
                     name="excerpt"
-                    label="Excerpt"
+                    label="Extracto"
                     id="excerpt"
                     autoComplete="excerpt"
                     multiline={true}
@@ -125,7 +125,7 @@ const ChapterForm = ({chapter, action, onSubmit, onChange}) => {
                 color="primary"
                 className={classes.submit}
             >
-                Save
+                Enviar
             </Button>
         </Grid>
     </form>

@@ -45,7 +45,7 @@ const AuthorBookDetails = ({bookId}) => {
 
     return <Container maxWidth={"md"} className={classes.bookContainer}>
         <Breadcrumbs aria-label="breadcrumb" className={classes.breadcrumbs}>
-            <Link color="inherit" href="/my-publications">My publications</Link>
+            <Link color="inherit" href="/my-publications">Mis publicaciones</Link>
             {book ? <Typography color="textPrimary">{book.title}</Typography> : <Skeleton variant={"text"}/>}
         </Breadcrumbs>
         {book && <AuthorBookCard book={book} author={author} includeDetailsAction={false} />}

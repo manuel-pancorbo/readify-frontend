@@ -65,7 +65,7 @@ const EditBook = ({bookId}) => {
             <Grid item xs={12} sm={6} md={5}>
                 <div className={classes.paper}>
                     <Typography component="h1" variant="h4">
-                        Editing book
+                        Editar {book ? book.title : "libro"}
                     </Typography>
                     <BookForm book={book} onSubmit={(book) => editBook(book)} onBookChange={(book) => setBook(book)}
                               action={!book ? "create" : "edit"}/>

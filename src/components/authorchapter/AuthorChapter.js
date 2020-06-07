@@ -22,7 +22,7 @@ const AuthorChapterCard = ({chapter, bookId}) => {
         <Paper elevation={5} className={classes.chapterContainer}>
             <Grid container spacing={2} direction={"row"} alignItems={"center"} justify={"center"} alignContent={"center"}>
                 <Grid item xs={12} md={2}>
-                    <Chip color={isPublished() ? "primary" : "secondary"} label={chapter.status} />
+                    <Chip color={isPublished() ? "primary" : "secondary"} label={isPublished() ? "Publicado" : "Borrador"} />
                 </Grid>
                 <Grid item xs={12} md={7}>
                     <Grid container direction={"column"}>

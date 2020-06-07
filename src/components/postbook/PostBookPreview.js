@@ -32,7 +32,7 @@ const PostBookPreview = ({book, author}) => {
     const classes = useStyles();
     const isBookVisible = () => book.visibility === "visible"
     const defaultBook = {
-        title: "Title preview", cover: "default-cover.jpg", tags: ["tags", "preview"], price: "0.00", summary: "", completionPercentage: 0, visibility: "null"
+        title: "Título", cover: "default-cover.jpg", tags: ["etiqueta1", "etiqueta2"], price: "0.00", summary: "", completionPercentage: 0, visibility: "null"
     }
 
     book = {...defaultBook, ...book}
@@ -60,7 +60,7 @@ const PostBookPreview = ({book, author}) => {
             </Grid>
             <Grid item className={classes.bookVisibility}>
                 <Chip color={ isBookVisible() ? "primary" : "secondary"} className={classes.visibility}
-                      label={ isBookVisible() ? "Published" : "Not published"}/>
+                      label={ isBookVisible() ? "Publicado" : "No publicado"}/>
             </Grid>
             <Grid item>
                 <img className={classes.coverPreview} alt="book cover" src={book.cover}/>

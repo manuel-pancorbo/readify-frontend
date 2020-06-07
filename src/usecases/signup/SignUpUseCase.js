@@ -17,7 +17,7 @@ export class SignUpUseCase {
         if (user.hasOwnProperty('email') && user.email.length > 50) {
             throw new Error("invalid email");
         }
-        if (user.hasOwnProperty('avatar') && user.avatar.length > 100) {
+        if (user.hasOwnProperty('image') && user.image.length > 100) {
             throw new Error("invalid avatar");
         }
         if (user.hasOwnProperty('password') && user.password.length < 5) {

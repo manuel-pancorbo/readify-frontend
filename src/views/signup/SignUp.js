@@ -71,7 +71,7 @@ export default function SignUp() {
         <div className={classes.paper}>
             <SignUpAvatar avatar={avatar}/>
             <Typography component="h1" variant="h5">
-                Sign up
+                Registro
             </Typography>
             <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
                 <Grid container spacing={2}>
@@ -83,7 +83,7 @@ export default function SignUp() {
                             required
                             fullWidth
                             id="fullName"
-                            label="Full Name"
+                            label="Nombre completo"
                             autoFocus
                             inputRef={register}
                         />
@@ -96,7 +96,7 @@ export default function SignUp() {
                             required
                             fullWidth
                             id="username"
-                            label="Username"
+                            label="Nombre de usuario"
                             inputRef={register}
                         />
                     </Grid>
@@ -106,7 +106,7 @@ export default function SignUp() {
                             required
                             fullWidth
                             id="email"
-                            label="Email Address"
+                            label="Email"
                             name="email"
                             autoComplete="email"
                             type={"email"}
@@ -131,7 +131,7 @@ export default function SignUp() {
                             required
                             fullWidth
                             name="password"
-                            label="Password"
+                            label="Contraseña"
                             type="password"
                             id="password"
                             autoComplete="current-password"
@@ -148,12 +148,12 @@ export default function SignUp() {
                     disabled={loading}
                     className={classes.submit}
                 >
-                    Sign Up
+                    Enviar
                 </Button>
                 <Grid container justify="flex-end">
                     <Grid item>
                         <Link href="/login" variant="body2">
-                            Already have an account? Log in
+                            ¿Ya tienes una cuenta? Inicia sesión
                         </Link>
                     </Grid>
                 </Grid>

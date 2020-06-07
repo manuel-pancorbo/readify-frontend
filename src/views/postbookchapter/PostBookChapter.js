@@ -54,7 +54,7 @@ const PostBookChapter = ({bookId}) => {
             <Grid item xs={12} sm={12} md={12}>
                 <div className={classes.paper}>
                     <Typography component="h1" variant="h4">
-                        Post a new chapter for {(book) && book.title}
+                        Escribe un capítulo nuevo para {(book) && book.title}
                     </Typography>
                     <ChapterForm chapter={chapter} action={"create"} onSubmit={postBookChapter} onChange={chapter => setChapter(chapter)}/>
                 </div>

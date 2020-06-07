@@ -53,7 +53,7 @@ const PostBook = () => {
             <Grid item xs={12} sm={6} md={5}>
                 <div className={classes.paper}>
                     <Typography component="h1" variant="h4">
-                        Write a new book
+                        Escribe un nuevo libro
                     </Typography>"
                     <BookForm book={book} onSubmit={(book) => postBook(book)} onBookChange={(book) => setBook(book)} action={"create"}/>
                 </div>

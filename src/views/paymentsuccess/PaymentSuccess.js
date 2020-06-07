@@ -39,18 +39,16 @@ const PaymentSuccess = () => {
 
     return (<Container maxWidth="sm" component="main" className={classes.heroContent}>
         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-            Your purchase has been processed!
+            Tu compra ha sido procesada
         </Typography>
         <Typography variant="h5" align="center" color="textSecondary" component="p">
-            Lorem ipsum dolor sit amet, te vis autem ridens utamur, aperiam impedit apeirian ea eam, nec ei saepe eirmod. Modus
-            moderatius cum te, te populo similique nam. Vim at indoctum tincidunt, brute accusam eum ad. Pri modo fugit at, cu vitae
-            constituam sea, et usu novum eripuit mediocritatem. Quaestio constituto ius ea.
+            ¡Desde este momento ya puedes empezar a leer el libro que has comprado!
         </Typography>
 
         <div className={classes.loginContainer}>
             <Button href="/mybooks" variant="contained" color="primary" size={"large"} classes={{
                 root: classes.MuiButtonRoot
-            }}>My books</Button>
+            }}>Mis libros</Button>
         </div>
         <Backdrop className={classes.backdrop} open={openBackdrop}>
             <CircularProgress color="inherit"/>

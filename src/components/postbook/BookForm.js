@@ -78,7 +78,7 @@ const BookForm = ({book, onBookChange, onSubmit, action}) => {
                     required
                     fullWidth
                     id="title"
-                    label="Title"
+                    label="Título"
                     autoFocus
                     onChange={handleInputChange}
                     inputRef={register}
@@ -93,7 +93,7 @@ const BookForm = ({book, onBookChange, onSubmit, action}) => {
                     required
                     fullWidth
                     id="cover"
-                    label="Cover URL"
+                    label="Portada"
                     onChange={handleInputChange}
                     inputRef={register}
                     value={book ? book.cover : ""}
@@ -105,7 +105,7 @@ const BookForm = ({book, onBookChange, onSubmit, action}) => {
                     required
                     fullWidth
                     id="tags"
-                    label="Tags"
+                    label="Etiquetas"
                     name="tags"
                     autoComplete="tags space separated"
                     onChange={handleInputChange}
@@ -118,7 +118,7 @@ const BookForm = ({book, onBookChange, onSubmit, action}) => {
                     variant="outlined"
                     fullWidth
                     id="price"
-                    label="Price"
+                    label="Precio"
                     name="price"
                     autoComplete="price"
                     required
@@ -137,7 +137,7 @@ const BookForm = ({book, onBookChange, onSubmit, action}) => {
                     type={"number"}
                     inputProps={{min: 0, max: 100}}
                     id="completionPercentage"
-                    label="Completion Percentage"
+                    label="Porcentaje de completitud"
                     onChange={handleInputChange}
                     inputRef={register}
                     value={book ? book.completionPercentage : 0}
@@ -145,14 +145,14 @@ const BookForm = ({book, onBookChange, onSubmit, action}) => {
             </Grid>}
             {action === "edit" && <Grid item xs={12}>
                 <FormControlLabel
-                    control={<Tooltip placement="top-start" title="Once published, a book cannot be unpublished"><Switch color="primary"
+                    control={<Tooltip placement="top-start" title="Una vez publicado, un libro no se puede ocultar"><Switch color="primary"
                                                                                                                          checked={isBookVisible()}
                                                                                                                          inputRef={register}
                                                                                                                          inputProps={{
                                                                                                                              onChange: handleInputChange,
-                                                                                                                             name: "visibility"
+                                                                                                                             name: "visibility",
                                                                                                                          }}/></Tooltip>}
-                    label="visibility"
+                    label="Visibilidad"
                 />
             </Grid>}
             <Grid item xs={12}>
@@ -161,7 +161,7 @@ const BookForm = ({book, onBookChange, onSubmit, action}) => {
                     required
                     fullWidth
                     name="summary"
-                    label="Summary"
+                    label="Resumen"
                     id="summary"
                     autoComplete="summary"
                     multiline={true}
@@ -179,7 +179,7 @@ const BookForm = ({book, onBookChange, onSubmit, action}) => {
             color="primary"
             className={classes.submit}
         >
-            Save
+            Enviar
         </Button>
     </form>
 }

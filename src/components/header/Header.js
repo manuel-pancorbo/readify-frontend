@@ -140,26 +140,26 @@ const UserAuthenticatedMenu = () => {
             <List>
                 <ListItem onClick={() => { window.location.href = "/" }} button>
                     <ListItemIcon><SearchIcon/></ListItemIcon>
-                    <ListItemText primary={"Explore"}/>
+                    <ListItemText primary={"Explorar"}/>
                 </ListItem>
                 <ListItem onClick={() => { window.location.href = "/my-books" }} button>
                     <ListItemIcon><MenuBookIcon/></ListItemIcon>
-                    <ListItemText primary={"My books"}/>
+                    <ListItemText primary={"Mis libros"}/>
                 </ListItem>
                 <ListItem onClick={() => { window.location.href = "/my-publications" }} button>
                     <ListItemIcon><CreateIcon/></ListItemIcon>
-                    <ListItemText primary={"My publications"}/>
+                    <ListItemText primary={"Mis publicaciones"}/>
                 </ListItem>
                 <ListItem onClick={() => { window.location.href = "/my-payments" }} button>
                     <ListItemIcon><ReceiptIcon/></ListItemIcon>
-                    <ListItemText primary={"My payments"}/>
+                    <ListItemText primary={"Mis pagos"}/>
                 </ListItem>
             </List>
             <Divider/>
             <List>
                 <ListItem onClick={() => { window.location.href = "/logout" }} button>
                     <ListItemIcon><ExitToAppIcon/></ListItemIcon>
-                    <ListItemText primary={"Logout"}/>
+                    <ListItemText primary={"Cerrar sesión"}/>
                 </ListItem>
             </List>
         </div>

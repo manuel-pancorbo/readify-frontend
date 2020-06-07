@@ -28,18 +28,16 @@ const PaymentCanceled = () => {
 
     return (<Container maxWidth="sm" component="main" className={classes.heroContent}>
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-                Your purchase has been canceled
+                Tu compra ha sido cancelada
             </Typography>
             <Typography variant="h5" align="center" color="textSecondary" component="p">
-                Lorem ipsum dolor sit amet, te vis autem ridens utamur, aperiam impedit apeirian ea eam, nec ei saepe eirmod. Modus
-                moderatius cum te, te populo similique nam. Vim at indoctum tincidunt, brute accusam eum ad. Pri modo fugit at, cu vitae
-                constituam sea, et usu novum eripuit mediocritatem. Quaestio constituto ius ea.
+                Lamentamos que finalmente no hayas comprado el libro, aunque ¡estamos seguros de que encontrarás otros mejores!
             </Typography>
 
             <div className={classes.loginContainer}>
                 <Button href="/" variant="contained" color="primary" size={"large"} classes={{
                     root: classes.MuiButtonRoot
-                }}>Explore books</Button>
+                }}>Explorar</Button>
             </div>
         </Container>)
 };

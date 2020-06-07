@@ -54,7 +54,7 @@ const MyPublications = () => {
 
     return <Container maxWidth="md" component="main" className={classes.main}>
         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-            My publications
+            Mis publicaciones
         </Typography>
         {(!books || books.length === 0) && noBooksText}
         {books && <Grid container spacing={5} className={classes.booksContainer}>

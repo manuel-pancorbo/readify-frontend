@@ -13,7 +13,7 @@ export const getUsersByIds = (userIds) => {
 
 export const postUser = (user) => {
     return axios.post('/v1/users', {
-        fullName: user['fullName'], email: user['email'], password: user['password'], image: user['avatar'], username: user['username']
+        fullName: user['fullName'], email: user['email'], password: user['password'], image: user['image'], username: user['username']
     })
         .then(() => Promise.resolve())
         .catch(() => Promise.reject(new Error("error creating user")))

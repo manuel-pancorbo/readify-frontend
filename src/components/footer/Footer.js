@@ -24,13 +24,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Footer = () => {
     const footers = [{
-        title: 'Company', description: ['Team', 'History', 'Contact us', 'Locations'],
+        title: 'Compañía', description: ['Equipo', 'Historia', 'Contacta con nosotros', 'Localización'],
     }, {
-        title: 'Features', description: ['Cool stuff', 'Random feature', 'Team feature', 'Developer stuff', 'Another one'],
-    }, {
-        title: 'Resources', description: ['Resource', 'Resource name', 'Another resource', 'Final resource'],
-    }, {
-        title: 'Legal', description: ['Privacy policy', 'Terms of use'],
+        title: 'Funcionalidades', description: ['Publica y vende libros', 'Compra Libros', 'Compra capítulos'],
+    },  {
+        title: 'Legal', description: ['Política de privacidad', 'Términos de uso'],
     }];
 
     const classes = useStyles();
@@ -47,24 +45,14 @@ const Footer = () => {
                             {item}
                         </Link>
                     </li>))}
-                    <li key="signup">
-                        <Link href="/sign-up" variant="subtitle1" color="textSecondary">
-                            Sign up
-                        </Link>
-                    </li>
-                    <li key="login">
-                        <Link href="/login" variant="subtitle1" color="textSecondary">
-                            Login
-                        </Link>
-                    </li>
                 </ul>
             </Grid>))}
         </Grid>
         <Box mt={5}>
             <Typography variant="body2" color="textSecondary" align="center">
                 {'Copyright © '}
-                <Link color="inherit" href="https://material-ui.com/">
-                    Your Website
+                <Link color="inherit" href="https://readify.com/">
+                    Readify
                 </Link>{' '}
                 {new Date().getFullYear()}
                 {'.'}

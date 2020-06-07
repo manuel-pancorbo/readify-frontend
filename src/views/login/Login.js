@@ -70,7 +70,7 @@ const Login = () => {
                 <LockOutlinedIcon/>
             </Avatar>
             <Typography component="h1" variant="h5">
-                Login
+                Iniciar sesión
             </Typography>
             <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
                 <TextField
@@ -79,7 +79,7 @@ const Login = () => {
                     required
                     fullWidth
                     id="userIdentifier"
-                    label="Email or Username"
+                    label="Email o Nombre de usuario"
                     name="userIdentifier"
                     autoComplete="Email or Username"
                     autoFocus
@@ -91,7 +91,7 @@ const Login = () => {
                     required
                     fullWidth
                     name="password"
-                    label="Password"
+                    label="Contraseña"
                     type="password"
                     id="password"
                     autoComplete="current-password"
@@ -99,7 +99,7 @@ const Login = () => {
                 />
                 <FormControlLabel
                     control={<Checkbox value="remember" color="primary"/>}
-                    label="Remember me"
+                    label="Recuérdame"
                     name="rememberme"
                     inputRef={register}
                 />
@@ -112,12 +112,12 @@ const Login = () => {
                     disabled={loading}
                     className={classes.submit}
                 >
-                    Log In
+                    Iniciar sesión
                 </Button>
                 <Grid container>
                     <Grid item>
                         <Link href="/sign-up" variant="body2">
-                            {"Don't have an account? Sign Up"}
+                            {"¿No tienes una cuenta aún? Regístrate"}
                         </Link>
                     </Grid>
                 </Grid>
