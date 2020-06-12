@@ -60,7 +60,7 @@ const ReaderBookDetail = ({bookId}) => {
     return (<Container maxWidth={"md"} className={classes.bookContainer}>
         <Breadcrumbs aria-label="breadcrumb" className={classes.breadcrumbs}>
             <Link color="inherit" href={isBookAcquiredByReader() ? "/my-books" : "/"}>
-                {isBookAcquiredByReader() ? "My books" : "Explore"}
+                {isBookAcquiredByReader() ? "Mis libros" : "Explorar"}
             </Link>
             <Typography color="textPrimary">{book.title}</Typography>
         </Breadcrumbs>

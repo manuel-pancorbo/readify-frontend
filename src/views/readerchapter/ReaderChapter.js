@@ -35,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
     }, chapterContent: {
         margin: theme.spacing(2, 2)
     }, breadcrumbs: {
-        marginBottom: theme.spacing(4)
+        marginBottom: theme.spacing(4),
+        marginLeft: theme.spacing(4)
     }
 }));
 
@@ -73,7 +74,7 @@ const ReaderChapter = ({bookId, chapterId, onDarkModeEnabled, onLightModeEnabled
     return <Container maxWidth="md" component="main" className={classes.heroContent}>
         {!chapter || !book ? <ChapterSkeleton/> : <React.Fragment><Breadcrumbs aria-label="breadcrumb" className={classes.breadcrumbs}>
             <Link color="inherit" href={`/my-books`}>
-                My books
+                Mis libros
             </Link>
             <Link color="inherit" href={`/books/${bookId}`}>
                 {book.title}

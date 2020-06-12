@@ -82,7 +82,7 @@ const Book = ({book}) => {
                 {book.author.fullName.charAt(0)}
             </Avatar>}
             title={book.title}
-            subheader="J.K. Rowling"
+            subheader={book.author.fullName}
         />
         <Divider/>
         <div className={classes.bookStatus}>
