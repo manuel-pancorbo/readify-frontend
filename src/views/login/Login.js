@@ -54,7 +54,7 @@ const Login = () => {
     const redirectAfterLogin = () => {
         const urlSearchParams = new URLSearchParams(window.location.search)
 
-        return urlSearchParams.get("redirectTo") != null ? urlSearchParams.get("redirectTo") : "/profile";
+        return urlSearchParams.get("redirectTo") != null ? urlSearchParams.get("redirectTo") : "/";
     }
 
     let errorMessage;

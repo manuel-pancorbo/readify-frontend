@@ -30,6 +30,15 @@ export const getReaderBookChapter = (reader, bookId, chapterId) => {
         .then((response) => Promise.resolve(response.data))
 }
 
+export const getReaderBooks = (reader) => {
+    const headers = {
+        'Content-Type': 'application/json', 'Authorization': `Bearer ${reader.token}`
+    };
+
+    return axios.get(`/v1/readers/${reader.id}/books`, {headers: headers})
+        .then((response) => Promise.resolve(response.data.books))
+}
+
 export const getReaderPayments = (reader) => {
     const headers = {
         'Content-Type': 'application/json', 'Authorization': `Bearer ${reader.token}`

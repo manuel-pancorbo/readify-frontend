@@ -50,30 +50,28 @@ const MyPayments = () => {
 
     return <Container maxWidth="md" component="main" className={classes.mainContainer}>
         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-            My payments
+            Mis pagos
         </Typography>
         <Typography variant="h5" align="center" color="textSecondary" component="p">
-            Lorem ipsum dolor sit amet, te vis autem ridens utamur, aperiam impedit apeirian ea eam, nec ei saepe eirmod. Modus
-            moderatius cum te, te populo similique nam. Vim at indoctum tincidunt, brute accusam eum ad. Pri modo fugit at, cu vitae
-            constituam sea, et usu novum eripuit mediocritatem. Quaestio constituto ius ea.
+            Aquí encontrarás los pagos de los libros que has adquirido anteriormente. Recuerda que aquí sólo verás los pagos completados.
         </Typography>
 
         {payments.length === 0 ? <PaymentsSkeleton/> : <TableContainer component={Paper} className={classes.tableContainer}>
             <Table aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell align="center">Payment Identifier</TableCell>
-                        <TableCell align="center">Import</TableCell>
-                        <TableCell align="center">Type</TableCell>
-                        <TableCell align="center">Started at</TableCell>
-                        <TableCell align="center">Completed at</TableCell>
+                        <TableCell align="center">Identificador del pago</TableCell>
+                        <TableCell align="center">Importe</TableCell>
+                        <TableCell align="center">Tipo</TableCell>
+                        <TableCell align="center">Empezado</TableCell>
+                        <TableCell align="center">Completado</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {payments.map((payment) => (<TableRow key={payment.id}>
                         <Tooltip placement="top-start" title={payment.id}><TableCell align="center">{payment.id.substr(0, 15)} </TableCell></Tooltip>
                         <TableCell align="center">{payment.amount.amount}€</TableCell>
-                        <TableCell align="center"><a href={"/books/" + payment.book}>{payment.type}</a></TableCell>
+                        <TableCell align="center"><a href={"/books/" + payment.book}>{payment.type === 'book' ? 'Libro completo' : 'Capítulo'}</a></TableCell>
                         <TableCell align="center">{moment(payment.startedAt).format('lll')}</TableCell>
                         <TableCell align="center">{moment(payment.startedAt).format('lll')}</TableCell>
                     </TableRow>))}
@@ -84,7 +82,7 @@ const MyPayments = () => {
         {(payments.length > 0) && <div className={classes.exploreButtonContainer}>
             <Button href="/" variant="contained" color="primary" size={"large"} classes={{
                 root: classes.MuiButtonRoot
-            }}>Explore</Button>
+            }}>Explorar otros libros</Button>
         </div>}
 
         <Backdrop className={classes.backdrop} open={openBackdrop}>
@@ -101,12 +99,12 @@ const PaymentsSkeleton = () => {
             <Table aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell align="center">PaymentId</TableCell>
-                        <TableCell align="center">Import</TableCell>
-                        <TableCell align="center">Type</TableCell>
-                        <TableCell align="center">Book</TableCell>
-                        <TableCell align="center">Started at</TableCell>
-                        <TableCell align="center">Completed at</TableCell>
+                        <TableCell align="center">Identificador</TableCell>
+                        <TableCell align="center">Importe</TableCell>
+                        <TableCell align="center">Tipo</TableCell>
+                        <TableCell align="center">Libro</TableCell>
+                        <TableCell align="center">Empezado</TableCell>
+                        <TableCell align="center">Completado</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

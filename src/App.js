@@ -11,7 +11,6 @@ import SignUp from "./views/signup/SignUp";
 import Footer from "./components/footer/Footer";
 import SignUpSuccess from "./views/signupsuccess/SignUpSuccess";
 import PrivateRoute from "./components/privateroute/PrivateRoute";
-import UserProfile from "./views/userprofile/UserProfile";
 import {AuthContext} from "./context/auth";
 import Logout from "./views/logout/Logout";
 import {AuthenticatedUserRepository} from "./services/auth/AuthenticatedUserRepository";
@@ -26,6 +25,7 @@ import EditBookChapter from "./views/editbookchapter/EditBookChapter";
 import MyPayments from "./views/mypayments/MyPayments";
 import AuthorBookDetails from "./views/authorbookdetails/AuthorBookDetails";
 import ReaderChapter from "./views/readerchapter/ReaderChapter";
+import MyBooks from "./views/mybooks/MyBooks";
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -65,7 +65,7 @@ const App = () => {
                     <Route exact path="/logout">
                         <Logout/>
                     </Route>
-                    <PrivateRoute exact path="/profile" component={UserProfile}/>
+                    <PrivateRoute exact path="/my-books" component={MyBooks}/>
                     <PrivateRoute exact path="/my-books/:bookId/chapters/:chapterId" component={({match}) => {
                         return (<ReaderChapter bookId={match.params.bookId} chapterId={match.params.chapterId}
                                                onDarkModeEnabled={() => setThemeType('dark')}
