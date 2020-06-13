@@ -172,18 +172,18 @@ const AnonymousUserMenu = () => {
             <List>
                 <ListItem onClick={() => { window.location.href = "/" }} button>
                     <ListItemIcon><SearchIcon/></ListItemIcon>
-                    <ListItemText primary={"Explore"}/>
+                    <ListItemText primary={"Explorar"}/>
                 </ListItem>
             </List>
             <Divider/>
             <List>
                 <ListItem onClick={() => { window.location.href = "/sign-up" }} button>
                     <ListItemIcon><KeyboardTabIcon/></ListItemIcon>
-                    <ListItemText primary={"Sign up"}/>
+                    <ListItemText primary={"Registrarse"}/>
                 </ListItem>
                 <ListItem onClick={() => { window.location.href = "/login" }} button>
                     <ListItemIcon><LockOpenIcon/></ListItemIcon>
-                    <ListItemText primary={"Login"}/>
+                    <ListItemText primary={"Iniciar sesión"}/>
                 </ListItem>
             </List>
         </div>
