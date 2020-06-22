@@ -46,7 +46,7 @@ const PaymentSuccess = () => {
         </Typography>
 
         <div className={classes.loginContainer}>
-            <Button href="/mybooks" variant="contained" color="primary" size={"large"} classes={{
+            <Button href="/my-books" variant="contained" color="primary" size={"large"} classes={{
                 root: classes.MuiButtonRoot
             }}>Mis libros</Button>
         </div>

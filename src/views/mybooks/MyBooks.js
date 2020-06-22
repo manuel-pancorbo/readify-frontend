@@ -6,10 +6,9 @@ import {makeStyles} from "@material-ui/core/styles";
 import {AuthenticatedUserRepository} from "../../services/auth/AuthenticatedUserRepository";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import Fab from "@material-ui/core/Fab";
-import CreateIcon from '@material-ui/icons/Create';
 import {GetReaderBooksUseCase} from "../../usecases/getreaderbooks/GetReaderBooksUseCase";
 import ReaderBookCard from "../../components/readerbook/ReaderBookCard";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
     main: {
@@ -24,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(2)
     }, fab: {
         margin: 0, top: 'auto', right: 40, bottom: 40, left: 'auto', position: 'fixed', width: 90, height: 90,
+    }, mainActionContainer: {
+        marginTop: '40px', display: "flex"
+    }, mainActionButton: {
+        margin: "auto"
     }
 }));
 
@@ -40,11 +43,16 @@ const MyBooks = () => {
             .finally(() => setOpenBackdrop(false))
     }, []);
 
-    const noBooksText = <Typography variant="h5" align="center" color="textSecondary" component="p">
-        Lorem ipsum dolor sit amet, te vis autem ridens utamur, aperiam impedit apeirian ea eam, nec ei saepe eirmod. Modus
-        moderatius cum te, te populo similique nam. Vim at indoctum tincidunt, brute accusam eum ad. Pri modo fugit at, cu vitae
-        constituam sea, et usu novum eripuit mediocritatem. Quaestio constituto ius ea.
-    </Typography>
+    const noBooksText = <React.Fragment>
+        <Typography variant="h5" align="center" color="textSecondary" component="p">
+            Parece que aún no has comprado ningún libro, ¿te animas?
+        </Typography>
+        <div className={classes.mainActionContainer}>
+            <Button href="/" variant="contained" color="primary" size={"large"} classes={{
+                root: classes.MuiButtonRoot
+            }} className={classes.mainActionButton}>Explorar</Button>
+        </div>
+    </React.Fragment>
 
     if (!books && !openBackdrop) {
         setOpenBackdrop(true)

@@ -11,6 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Fab from "@material-ui/core/Fab";
 import CreateIcon from '@material-ui/icons/Create';
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
     main: {
@@ -25,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(2)
     }, fab: {
         margin: 0, top: 'auto', right: 40, bottom: 40, left: 'auto', position: 'fixed', width: 90, height: 90,
+    }, mainActionContainer: {
+        marginTop: '40px', display: "flex"
+    }, mainActionButton: {
+        margin: "auto"
     }
 }));
 
@@ -38,15 +43,20 @@ const MyPublications = () => {
         setOpenBackdrop(true);
         new GetAuthorBooksUseCase(new AuthenticatedUserRepository()).execute()
             .then((books) => setBooks(books))
-            .catch((error) => console.error(error))
+            .catch((error) => console.error("holaaaaaa" + error))
             .finally(() => setOpenBackdrop(false))
     }, []);
 
-    const noBooksText = <Typography variant="h5" align="center" color="textSecondary" component="p">
-        Lorem ipsum dolor sit amet, te vis autem ridens utamur, aperiam impedit apeirian ea eam, nec ei saepe eirmod. Modus
-        moderatius cum te, te populo similique nam. Vim at indoctum tincidunt, brute accusam eum ad. Pri modo fugit at, cu vitae
-        constituam sea, et usu novum eripuit mediocritatem. Quaestio constituto ius ea.
-    </Typography>
+    const noBooksText = <React.Fragment>
+        <Typography variant="h5" align="center" color="textSecondary" component="p">
+            Parece que aún no has publicado ningún libro, ¿te animas?
+        </Typography>
+        <div className={classes.mainActionContainer}>
+            <Button href="/post-book" variant="contained" color="primary" size={"large"} classes={{
+                root: classes.MuiButtonRoot
+            }} className={classes.mainActionButton}>Escribir un libro</Button>
+        </div>
+    </React.Fragment>
 
     if (!books && !openBackdrop) {
         setOpenBackdrop(true)
@@ -65,9 +75,9 @@ const MyPublications = () => {
         <Backdrop className={classes.backdrop} open={openBackdrop}>
             <CircularProgress color="inherit"/>
         </Backdrop>
-        <Fab color="primary" aria-label="add" size={"large"} className={classes.fab} href="/post-book">
+        {(books && books.length !== 0) && <Fab color="primary" aria-label="add" size={"large"} className={classes.fab} href="/post-book">
             <CreateIcon/>
-        </Fab>
+        </Fab>}
     </Container>
 }
 

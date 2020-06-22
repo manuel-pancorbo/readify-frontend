@@ -7,6 +7,10 @@ export const getUserById = (userId) => {
 };
 
 export const getUsersByIds = (userIds) => {
+    if (!userIds || userIds.length === 0) {
+        return Promise.resolve([])
+    }
+
     return axios.get("/v1/users", {params: {ids: userIds.join(",")}})
         .then((response) => Promise.resolve(response.data.users))
 };
