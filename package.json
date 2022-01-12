@@ -13,7 +13,7 @@
     "axios": "^0.19.2",
     "disqus-react": "^1.0.8",
     "jsonwebtoken": "^8.5.1",
-    "markdown-it": "^10.0.0",
+    "markdown-it": "^12.3.2",
     "moment": "^2.25.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
